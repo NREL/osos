@@ -74,18 +74,18 @@ class Pypinfo:
         cmd = shlex.split(cmd)
 
         # use subprocess to submit command and get piped o/e
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        stderr = stderr.decode('ascii').rstrip()
+        with subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE) as process:
+            stdout, stderr = process.communicate()
+            stderr = stderr.decode('ascii').rstrip()
 
-        if process.returncode != 0:
-            raise OSError('Pypinfo cli failed with return code {} '
-                          'and stderr:\n{}'
-                          .format(process.returncode, stderr))
+            if process.returncode != 0:
+                raise OSError('Pypinfo cli failed with return code {} '
+                              'and stderr:\n{}'
+                              .format(process.returncode, stderr))
 
-        out = stdout.decode('ascii').rstrip()
-        out = json.loads(out)
+            out = stdout.decode('ascii').rstrip()
+            out = json.loads(out)
 
         return out
 
