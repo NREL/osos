@@ -6,6 +6,7 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 import json
+import pytest
 from osos.api_pypi.api_pypi import Pypinfo
 
 
@@ -24,3 +25,10 @@ def test_pypinfo():
     cstats = json.loads(cstats)
     assert 'US' in cstats
     assert isinstance(cstats['US'], int)
+
+
+def test_bad_auth():
+    """Test that a bad authentication file will raise an error"""
+    with pytest.raises(AssertionError):
+        Pypinfo.get_monthly_data('nrel-rev', 1,
+                                 auth='/home/gbuster/bad_auth.json')
