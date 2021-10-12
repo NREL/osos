@@ -3,6 +3,7 @@
 Interface module for pypi API
 """
 from datetime import datetime
+import pandas as pd
 import os
 import json
 import shlex
@@ -109,9 +110,11 @@ class Pypinfo:
 
         Returns
         -------
-        out : dict
-            Monthly downloads (values) broken down by country code (keys)
-            including "total"
+        out : pd.DataFrame
+            One row of a DataFrame for the month with integer
+            index YYYYMM and columns:
+            "pypi_country_stats" (json string of country downloads),
+            "pypi_total" (integer value of total downloads for month)
         """
 
         cls.preflight(auth=auth)
@@ -123,13 +126,9 @@ class Pypinfo:
                f'--end-date {year}-{month} '
                f'{name} country')
         cli_out = cls.cli(cmd)
-        out = {row['country']: row['download_count']
-               for row in cli_out['rows']}
-        out['total'] = sum(out.values())
+        country_stats = {row['country']: row['download_count']
+                         for row in cli_out['rows']}
+        out = pd.DataFrame(index=[int(str(year) + month)])
+        out['pypi_country_stats'] = json.dumps(country_stats)
+        out['pypi_total'] = sum(country_stats.values())
         return out
-
-
-if __name__ == '__main__':
-    out = Pypinfo.get_monthly_data('nrel-rev', 8)
-    from pprint import pprint
-    pprint(out)
