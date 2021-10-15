@@ -2,33 +2,27 @@
 """
 Test for pypi API
 """
-from datetime import datetime
+import datetime
 import pandas as pd
 import numpy as np
-import json
-import pytest
-from osos.api_pypi.api_pypi import Pypinfo
+from osos.api_pypi.api_pypi import Pypi
 
 
-def test_pypinfo():
-    """Test a simple pypinfo request"""
-    out = Pypinfo.get_monthly_data('nrel-rev', 1)
-    i = int(str(datetime.now().year) + '01')
+def test_pypi():
+    """Test a simple pypi request"""
+    d0 = datetime.date.today()
+    dates = []
+    for nd in range(1, 14):
+        dates.append(d0 - datetime.timedelta(days=nd))
+
+    out = Pypi.get_daily_data('nrel-rev', dates)
+
+    assert len(out) == len(dates)
 
     assert isinstance(out, pd.DataFrame)
-    assert 'pypi_total' in out
-    assert isinstance(out.at[i, 'pypi_total'], np.integer)
+    assert 'pypi_daily' in out
+    assert out['pypi_daily'].dtype == np.int64
 
-    assert 'pypi_country_stats' in out
-    cstats = out.at[i, 'pypi_country_stats']
-    assert isinstance(cstats, str)
-    cstats = json.loads(cstats)
-    assert 'US' in cstats
-    assert isinstance(cstats['US'], int)
-
-
-def test_bad_auth():
-    """Test that a bad authentication file will raise an error"""
-    with pytest.raises(AssertionError):
-        Pypinfo.get_monthly_data('nrel-rev', 1,
-                                 auth='/home/gbuster/bad_auth.json')
+    assert isinstance(out, pd.DataFrame)
+    assert 'pypi_180_cumulative' in out
+    assert out['pypi_180_cumulative'].dtype == np.int64
