@@ -34,9 +34,95 @@ class Github:
         self.token = token
         if token is None:
             self.token = os.getenv('GITHUB_TOKEN', None)
-        if token is None:
+        if self.token is None:
             msg = 'Could not find environment variable "GITHUB_TOKEN".'
             raise OSError(msg)
+
+    def _issues_pulls(self, option='issues', state='open', **kwargs):
+        """Get open/closed issues/pulls for the repo (all have the same
+        general parsing format)
+
+        Parameters
+        ----------
+        option : str
+            "issues" or "pulls"
+        state : str
+            "open" or "closed"
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : dict
+            Namespace with keys: "{option}_{state}" and "{option}_{state}_*"
+            for count, lifteimtes, and mean/median lifetime in days
+        """
+
+        if 'params' in kwargs:
+            kwargs['params']['state'] = state
+        else:
+            kwargs['params'] = {'state': state}
+
+        request = self.base_req + f'/{option}'
+        items = self.get_generator(request, **kwargs)
+
+        numbers = []
+        lifetimes = []
+        for item in items:
+            d0 = item['created_at']
+            d1 = item['closed_at']
+            d0 = datetime.datetime.strptime(d0, self.TIME_FORMAT)
+            if state == 'closed' and d1 is not None:
+                d1 = datetime.datetime.strptime(d1, self.TIME_FORMAT)
+            elif state == 'open':
+                d1 = datetime.datetime.now()
+
+            assert d1 is not None, f'Bad final date for: {item}'
+
+            # pulls get listed as issues but not the other way around
+            condition_1 = option == 'pulls'
+            condition_2 = option == 'issues' and 'pull_request' not in item
+
+            if condition_1 or condition_2:
+                numbers.append(item['number'])
+                lifetime = (d1 - d0).total_seconds() / (24 * 3600)
+                lifetimes.append(lifetime)
+
+        out = {f'{option}_{state}': numbers,
+               f'{option}_{state}_count': len(numbers),
+               f'{option}_{state}_lifetimes': lifetimes,
+               f'{option}_{state}_mean_lifetime': np.mean(lifetimes),
+               f'{option}_{state}_median_lifetime': np.median(lifetimes),
+               }
+
+        return out
+
+    def _traffic(self, option='clones', **kwargs):
+        """Get the daily github repo traffic data for the last two weeks
+
+        Parameters
+        ----------
+        option : str
+            "clones" or "views"
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : pd.DataFrame
+            Timeseries of daily git clone data. Includes columns for "views" or
+            "clones" and "views_unique" or "clones_unique". Index is a pandas
+            datetime index with just the datetime.date part.
+        """
+        request = self.base_req + f'/traffic/{option}'
+        out = self.get_request(request, **kwargs).json()
+        out = pd.DataFrame(out[option])
+        out.index = pd.to_datetime(out['timestamp']).dt.date
+        out = out.drop('timestamp', axis=1)
+        out.index.name = None
+        out = out.rename({'count': option, 'uniques': f'{option}_unique'},
+                         axis=1)
+        return out
 
     def get_request(self, request, **kwargs):
         """Get the raw request output object
@@ -94,7 +180,8 @@ class Github:
 
         while True:
             params['page'] += 1
-            temp = requests.get(request, headers=headers, **kwargs)
+            temp = requests.get(request, headers=headers, params=params,
+                                **kwargs)
             if temp.status_code != 200:
                 msg = ('Received unexpected status code "{}" for reason "{}".'
                        '\nRequest: {}\nOutput: {}'
@@ -141,15 +228,15 @@ class Github:
         out = None
         while True:
             params['page'] += 1
-            temp = requests.get(request, headers=headers, **kwargs)
-            if temp.status_code != 200:
+            req = requests.get(request, headers=headers, **kwargs)
+            if req.status_code != 200:
                 msg = ('Received unexpected status code "{}" for reason "{}".'
                        '\nRequest: {}\nOutput: {}'
-                       .format(temp.status_code, temp.reason, request,
-                               temp.text))
+                       .format(req.status_code, req.reason, request,
+                               req.text))
                 raise IOError(msg)
 
-            temp = temp.json()
+            temp = req.json()
             if not any(temp):
                 break
             elif out is None:
@@ -163,232 +250,11 @@ class Github:
                        'not parse output from request: "{}"'
                        .format(type(temp), request))
                 raise TypeError(msg)
+            if not any(req.links):
+                # only one page
+                break
 
         return out
-
-    def _traffic(self, option='clones', **kwargs):
-        """Get the daily github repo traffic data for the last two weeks
-
-        Parameters
-        ----------
-        option : str
-            "clones" or "views"
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : pd.DataFrame
-            Timeseries of daily git clone data. Includes columns for "views" or
-            "clones" and "views_unique" or "clones_unique". Index is a pandas
-            datetime index with just the datetime.date part.
-        """
-        request = self.base_req + f'/traffic/{option}'
-        out = self.get_all(request, **kwargs)
-        out = pd.DataFrame(out[option])
-        out.index = pd.to_datetime(out['timestamp']).dt.date
-        out = out.drop('timestamp', axis=1)
-        out.index.name = None
-        out = out.rename({'count': option, 'uniques': f'{option}_unique'},
-                         axis=1)
-        return out
-
-    def _issues_pulls(self, option='issues', state='open', **kwargs):
-        """Get open/closed issues/pulls for the repo (all have the same
-        general parsing format)
-
-        Parameters
-        ----------
-        option : str
-            "issues" or "pulls"
-        state : str
-            "open" or "closed"
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : dict
-            Namespace with keys: "{option}_{state}" and
-            "{option}_{state}_*_lifetime" for mean and median lifetime in days
-        """
-
-        if 'params' in kwargs:
-            kwargs['params']['state'] = state
-        else:
-            kwargs['params'] = {'state': state}
-
-        request = self.base_req + f'/{option}'
-        items = self.get_generator(request, **kwargs)
-
-        lifetimes = []
-        d1 = datetime.datetime.now()
-        for item in items:
-            d0 = datetime.datetime.strptime(item['created_at'],
-                                            self.TIME_FORMAT)
-            if state == 'closed':
-                d1 = datetime.datetime.strptime(item['closed_at'],
-                                                self.TIME_FORMAT)
-
-            lifetime = (d1 - d0).total_seconds() / (24 * 3600)
-            lifetimes.append(lifetime)
-
-        out = {f'{option}_{state}': len(items),
-               f'{option}_{state}_mean_lifetime': np.mean(lifetimes),
-               f'{option}_{state}_mean_lifetime': np.median(lifetimes),
-               }
-
-        return out
-
-    def issues_closed(self, **kwargs):
-        """Get data on the closed repo issues.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : dict
-            Namespace with keys: "issues_closed" and mean/median lifetime
-            metrics in days
-        """
-        out = self._issues_pulls(option='issues', state='closed', **kwargs)
-        return out
-
-    def issues_open(self, **kwargs):
-        """Get data on the open repo issues.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : dict
-            Namespace with keys: "issues_open" and and mean/median lifetime
-            metrics in days
-        """
-        out = self._issues_pulls(option='issues', state='open', **kwargs)
-        return out
-
-    def pulls_closed(self, **kwargs):
-        """Get data on the closed repo pull requests.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : dict
-            Namespace with keys: "pulls_closed" and and mean/median lifetime
-            metrics in days
-        """
-        out = self._issues_pulls(option='pulls', state='closed', **kwargs)
-        return out
-
-    def pulls_open(self, **kwargs):
-        """Get data on the open repo pull requests.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : dict
-            Namespace with keys: "pulls_open" and mean/median lifetime
-            metrics in days
-        """
-        out = self._issues_pulls(option='pulls', state='open', **kwargs)
-        return out
-
-    def forks(self, **kwargs):
-        """Get the number of repo forks.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : int
-            The number of forks.
-        """
-        request = self.base_req + '/forks'
-        return len(self.get_all(request, **kwargs))
-
-    def clones(self, **kwargs):
-        """Get the daily github repo clone data for the last two weeks.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : pd.DataFrame
-            Timeseries of daily git clone data. Includes columns for "clones"
-            and "clones_unique". Index is a pandas datetime index with just the
-            datetime.date part.
-        """
-        return self._traffic(option='clones', **kwargs)
-
-    def views(self, **kwargs):
-        """Get the daily github repo views data for the last two weeks.
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : pd.DataFrame
-            Timeseries of daily git views data. Includes columns for "views"
-            and "views_unique". Index is a pandas datetime index with just the
-            datetime.date part.
-        """
-        return self._traffic(option='views', **kwargs)
-
-    def stargazers(self, **kwargs):
-        """Get the number of repo stargazers
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : int
-            Number of stargazers for the repo.
-        """
-        request = self.base_req + '/stargazers'
-        return len(self.get_all(request, **kwargs))
-
-    def subscribers(self, **kwargs):
-        """Get the number of repo subscribers
-
-        Parameters
-        ----------
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : int
-            Number of subscribers for the repo.
-        """
-        request = self.base_req + '/subscribers'
-        return len(self.get_all(request, **kwargs))
 
     def contributors(self, **kwargs):
         """Get the number of repo contributors
@@ -404,7 +270,10 @@ class Github:
             Number of contributors for the repo.
         """
         request = self.base_req + '/contributors'
-        return len(self.get_all(request, **kwargs))
+        count = 0
+        for _ in self.get_generator(request, **kwargs):
+            count += 1
+        return count
 
     def commit_count(self, **kwargs):
         """Get the number of repo commits
@@ -427,9 +296,9 @@ class Github:
             msg = 'Could not find page=[0-9]*$ in url: {}'.format(last_url)
             raise RuntimeError(msg)
 
-        num_pages = int(match.group().replace('page='))
+        num_pages = int(match.group().replace('page=', ''))
         last_page = self.get_request(last_url, **kwargs)
-        out = len(req.json()) * (num_pages - 1) + len(last_page.url())
+        out = len(req.json()) * (num_pages - 1) + len(last_page.json())
         return out
 
     def commits(self, date_iter, search_all=False, **kwargs):
@@ -457,7 +326,7 @@ class Github:
         request = self.base_req + '/commits'
         commit_iter = self.get_generator(request, **kwargs)
         for com in commit_iter:
-            c_date = com['commit']['author']['date']
+            c_date = com['commit']['committer']['date']
             c_date = datetime.datetime.strptime(c_date, self.TIME_FORMAT)
             c_date = c_date.date()
             stop = True
@@ -473,3 +342,162 @@ class Github:
                 break
 
         return out
+
+    def clones(self, **kwargs):
+        """Get the daily github repo clone data for the last two weeks.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : pd.DataFrame
+            Timeseries of daily git clone data. Includes columns for "clones"
+            and "clones_unique". Index is a pandas datetime index with just the
+            datetime.date part.
+        """
+        return self._traffic(option='clones', **kwargs)
+
+    def forks(self, **kwargs):
+        """Get the number of repo forks.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : int
+            The number of forks.
+        """
+        request = self.base_req + '/forks'
+        count = 0
+        for _ in self.get_generator(request, **kwargs):
+            count += 1
+        return count
+
+    def issues_closed(self, **kwargs):
+        """Get data on the closed repo issues.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : dict
+            Namespace with keys: "issues_closed" and "issues_closed_*"
+            for count, lifteimtes, and mean/median lifetime in days
+        """
+        out = self._issues_pulls(option='issues', state='closed', **kwargs)
+        return out
+
+    def issues_open(self, **kwargs):
+        """Get data on the open repo issues.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : dict
+            Namespace with keys: "issues_open" and "issues_open_*"
+            for count, lifteimtes, and mean/median lifetime in days
+        """
+        out = self._issues_pulls(option='issues', state='open', **kwargs)
+        return out
+
+    def pulls_closed(self, **kwargs):
+        """Get data on the closed repo pull requests.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : dict
+            Namespace with keys: "pulls_closed" and "pulls_closed_*"
+            for count, lifteimtes, and mean/median lifetime in days
+        """
+        out = self._issues_pulls(option='pulls', state='closed', **kwargs)
+        return out
+
+    def pulls_open(self, **kwargs):
+        """Get data on the open repo pull requests.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : dict
+            Namespace with keys: "pulls_open" and "pulls_open_*"
+            for count, lifteimtes, and mean/median lifetime in days
+        """
+        out = self._issues_pulls(option='pulls', state='open', **kwargs)
+        return out
+
+    def stargazers(self, **kwargs):
+        """Get the number of repo stargazers
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : int
+            Number of stargazers for the repo.
+        """
+        request = self.base_req + '/stargazers'
+        count = 0
+        for _ in self.get_generator(request, **kwargs):
+            count += 1
+        return count
+
+    def subscribers(self, **kwargs):
+        """Get the number of repo subscribers
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : int
+            Number of subscribers for the repo.
+        """
+        request = self.base_req + '/subscribers'
+        count = 0
+        for _ in self.get_generator(request, **kwargs):
+            count += 1
+        return count
+
+    def views(self, **kwargs):
+        """Get the daily github repo views data for the last two weeks.
+
+        Parameters
+        ----------
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : pd.DataFrame
+            Timeseries of daily git views data. Includes columns for "views"
+            and "views_unique". Index is a pandas datetime index with just the
+            datetime.date part.
+        """
+        return self._traffic(option='views', **kwargs)
