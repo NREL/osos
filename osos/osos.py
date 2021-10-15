@@ -96,6 +96,7 @@ class Osos:
 
         table = self.make_table()
         if os.path.exists(cache_file):
+            print('Loading: ', cache_file)
             original = pd.read_csv(cache_file, index_col=0)
             original.index = pd.to_datetime(original.index.values).date
             mask = ~original.index.isin(table.index.values)
