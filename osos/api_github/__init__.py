@@ -2,3 +2,4 @@
 """
 Interface module for github API
 """
+from .api_github import Github

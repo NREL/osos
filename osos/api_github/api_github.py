@@ -88,11 +88,13 @@ class Github:
                 lifetime = (d1 - d0).total_seconds() / (24 * 3600)
                 lifetimes.append(lifetime)
 
+        mean = np.nan if not any(lifetimes) else np.mean(lifetimes)
+        median = np.nan if not any(lifetimes) else np.median(lifetimes)
         out = {f'{option}_{state}': numbers,
                f'{option}_{state}_count': len(numbers),
                f'{option}_{state}_lifetimes': lifetimes,
-               f'{option}_{state}_mean_lifetime': np.mean(lifetimes),
-               f'{option}_{state}_median_lifetime': np.median(lifetimes),
+               f'{option}_{state}_mean_lifetime': mean,
+               f'{option}_{state}_median_lifetime': median,
                }
 
         return out
