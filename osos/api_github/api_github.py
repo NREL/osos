@@ -8,6 +8,10 @@ import numpy as np
 import pandas as pd
 import requests
 import os
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Github:
@@ -29,6 +33,8 @@ class Github:
             the GITHUB_TOKEN environment variable
         """
 
+        self._owner = owner
+        self._repo = repo
         self.base_req = self.BASE_REQ.format(owner=owner, repo=repo)
 
         self.token = token
@@ -36,6 +42,7 @@ class Github:
             self.token = os.getenv('GITHUB_TOKEN', None)
         if self.token is None:
             msg = 'Could not find environment variable "GITHUB_TOKEN".'
+            logger.error(msg)
             raise OSError(msg)
 
     def _issues_pulls(self, option='issues', state='open', **kwargs):
@@ -152,6 +159,7 @@ class Github:
                    '\nRequest: {}\nOutput: {}'
                    .format(out.status_code, out.reason, request,
                            out.text))
+            logger.error(msg)
             raise IOError(msg)
 
         return out
@@ -189,6 +197,7 @@ class Github:
                        '\nRequest: {}\nOutput: {}'
                        .format(temp.status_code, temp.reason, request,
                                temp.text))
+                logger.error(msg)
                 raise IOError(msg)
 
             temp = temp.json()
@@ -198,65 +207,11 @@ class Github:
                 msg = ('JSON output is type "{}", not list, could '
                        'not parse output from request: "{}"'
                        .format(type(temp), request))
+                logger.error(msg)
                 raise TypeError(msg)
             else:
                 for entry in temp:
                     yield entry
-
-    def get_all(self, request, **kwargs):
-        """Call the github API using the requests.get() method and merge all
-        the paginated results into a single output
-
-        Parameters
-        ----------
-        request : str
-            Request URL, example: "https://api.github.com/repos/NREL/reV/pulls"
-        kwargs : dict
-            Optional kwargs to get passed to requests.get()
-
-        Returns
-        -------
-        out : dict | list
-            Json output of the request
-        """
-
-        headers = kwargs.pop('headers', {})
-        if 'Authorization' not in headers:
-            headers['Authorization'] = f'token {self.token}'
-
-        params = kwargs.pop('params', {})
-        params['page'] = 0
-
-        out = None
-        while True:
-            params['page'] += 1
-            req = requests.get(request, headers=headers, **kwargs)
-            if req.status_code != 200:
-                msg = ('Received unexpected status code "{}" for reason "{}".'
-                       '\nRequest: {}\nOutput: {}'
-                       .format(req.status_code, req.reason, request,
-                               req.text))
-                raise IOError(msg)
-
-            temp = req.json()
-            if not any(temp):
-                break
-            elif out is None:
-                out = temp
-            elif isinstance(temp, dict):
-                out.update(temp)
-            elif isinstance(temp, list):
-                out += temp
-            else:
-                msg = ('JSON output is type "{}", not dict or list, could '
-                       'not parse output from request: "{}"'
-                       .format(type(temp), request))
-                raise TypeError(msg)
-            if not any(req.links):
-                # only one page
-                break
-
-        return out
 
     def contributors(self, **kwargs):
         """Get the number of repo contributors
@@ -271,6 +226,7 @@ class Github:
         out : int
             Number of contributors for the repo.
         """
+        logger.debug(f'Getting contributors for "{self._owner}/{self._repo}"')
         request = self.base_req + '/contributors'
         count = 0
         for _ in self.get_generator(request, **kwargs):
@@ -290,12 +246,14 @@ class Github:
         out : int
             Total number of commits to the repo.
         """
+        logger.debug(f'Getting commit count for "{self._owner}/{self._repo}"')
         request = self.base_req + '/commits'
         req = self.get_request(request, **kwargs)
         last_url = req.links['last']['url']
         match = re.search(r'page=[0-9]*$', last_url)
         if not match:
             msg = 'Could not find page=[0-9]*$ in url: {}'.format(last_url)
+            logger.error(msg)
             raise RuntimeError(msg)
 
         num_pages = int(match.group().replace('page=', ''))
@@ -323,6 +281,8 @@ class Github:
             columns for "commits".
         """
 
+        logger.debug('Getting commit history for '
+                     f'"{self._owner}/{self._repo}"')
         out = pd.DataFrame(index=date_iter)
         out['commits'] = 0
         request = self.base_req + '/commits'
@@ -360,6 +320,7 @@ class Github:
             and "clones_unique". Index is a pandas datetime index with just the
             datetime.date part.
         """
+        logger.debug(f'Getting clones for "{self._owner}/{self._repo}"')
         return self._traffic(option='clones', **kwargs)
 
     def forks(self, **kwargs):
@@ -375,6 +336,7 @@ class Github:
         out : int
             The number of forks.
         """
+        logger.debug(f'Getting forks for "{self._owner}/{self._repo}"')
         request = self.base_req + '/forks'
         count = 0
         for _ in self.get_generator(request, **kwargs):
@@ -395,6 +357,7 @@ class Github:
             Namespace with keys: "issues_closed" and "issues_closed_*"
             for count, lifteimtes, and mean/median lifetime in days
         """
+        logger.debug(f'Getting closed issues for "{self._owner}/{self._repo}"')
         out = self._issues_pulls(option='issues', state='closed', **kwargs)
         return out
 
@@ -412,6 +375,7 @@ class Github:
             Namespace with keys: "issues_open" and "issues_open_*"
             for count, lifteimtes, and mean/median lifetime in days
         """
+        logger.debug(f'Getting open issues for "{self._owner}/{self._repo}"')
         out = self._issues_pulls(option='issues', state='open', **kwargs)
         return out
 
@@ -429,6 +393,7 @@ class Github:
             Namespace with keys: "pulls_closed" and "pulls_closed_*"
             for count, lifteimtes, and mean/median lifetime in days
         """
+        logger.debug(f'Getting closed pulls for "{self._owner}/{self._repo}"')
         out = self._issues_pulls(option='pulls', state='closed', **kwargs)
         return out
 
@@ -446,6 +411,7 @@ class Github:
             Namespace with keys: "pulls_open" and "pulls_open_*"
             for count, lifteimtes, and mean/median lifetime in days
         """
+        logger.debug(f'Getting open pulls for "{self._owner}/{self._repo}"')
         out = self._issues_pulls(option='pulls', state='open', **kwargs)
         return out
 
@@ -462,6 +428,7 @@ class Github:
         out : int
             Number of stargazers for the repo.
         """
+        logger.debug(f'Getting stargazers for "{self._owner}/{self._repo}"')
         request = self.base_req + '/stargazers'
         count = 0
         for _ in self.get_generator(request, **kwargs):
@@ -481,6 +448,7 @@ class Github:
         out : int
             Number of subscribers for the repo.
         """
+        logger.debug(f'Getting subscribers for "{self._owner}/{self._repo}"')
         request = self.base_req + '/subscribers'
         count = 0
         for _ in self.get_generator(request, **kwargs):
@@ -502,4 +470,5 @@ class Github:
             and "views_unique". Index is a pandas datetime index with just the
             datetime.date part.
         """
+        logger.debug(f'Getting views history for "{self._owner}/{self._repo}"')
         return self._traffic(option='views', **kwargs)

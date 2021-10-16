@@ -6,6 +6,10 @@ import pypistats
 import datetime
 import numpy as np
 import pandas as pd
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Pypi:
@@ -71,6 +75,9 @@ class Pypi:
             180 day cumulative is for the last 180 days from today's actual
             date, not 180 days from the date in the output row index.
         """
+
+        logger.debug(f'Getting daily pypi data for "{name}"')
+        logger.debug(f'Including mirrors: {include_mirrors}')
 
         out = cls.get_data(name, include_mirrors=include_mirrors)
 

@@ -5,6 +5,10 @@ import os
 import pandas as pd
 from osos.api_github import Github
 from osos.api_pypi import Pypi
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Osos:
@@ -42,6 +46,9 @@ class Osos:
             the last two weeks not including today and columns for various
             github and pypi usage metrics.
         """
+
+        logger.info('Collecting data for: '
+                    f'"{self._git_owner}/{self._git_repo}"')
 
         table = self._gh.clones()
         table = table.join(self._gh.views())
@@ -96,7 +103,7 @@ class Osos:
 
         table = self.make_table()
         if os.path.exists(cache_file):
-            print('Loading: ', cache_file)
+            logger.info(f'Updating cached file: {cache_file}')
             original = pd.read_csv(cache_file, index_col=0)
             original.index = pd.to_datetime(original.index.values).date
             mask = ~original.index.isin(table.index.values)
