@@ -37,6 +37,50 @@ class Osos:
 
         self._gh = Github(self._git_owner, self._git_repo)
 
+    @staticmethod
+    def clean_table(table):
+        """Fill nan values and make sure the timeseries index has 14 days.
+
+        Parameters
+        ----------
+        table : pd.DataFrame
+            Repository usage and statistics table with datetime.date index for
+            the last two weeks including today and columns for various
+            github and pypi usage metrics.
+
+        Returns
+        -------
+        table : pd.DataFrame
+            Repository usage and statistics table with datetime.date index for
+            the last two weeks including today and columns for various
+            github and pypi usage metrics.
+        """
+        d0 = datetime.date.today()
+        d1 = datetime.date.today() - datetime.timedelta(days=13)
+        index = pd.date_range(d1, d0, freq='1D').date
+        table = table.reindex(index)
+
+        cols = ['clones', 'clones_unique', 'views', 'views_unique', 'commits']
+        table[cols] = table[cols].fillna(0)
+
+        cols = ['issues_closed_count', 'issues_closed_mean_lifetime',
+                'issues_closed_median_lifetime', 'issues_open_count',
+                'issues_open_mean_lifetime', 'issues_open_median_lifetime',
+                'pulls_closed_count', 'pulls_closed_mean_lifetime',
+                'pulls_closed_median_lifetime', 'pulls_open_count',
+                'pulls_open_mean_lifetime', 'pulls_open_median_lifetime',
+                'forks', 'stargazers', 'subscribers', 'contributors',
+                'total_commits', 'updated_on']
+        table[cols] = table[cols].ffill().bfill()
+        table[cols] = table[cols].fillna(0)
+
+        if 'pypi_daily' in table:
+            table['pypi_daily'] = table['pypi_daily'].fillna(0)
+            table['pypi_180_cumulative'] = table['pypi_180_cumulative']\
+                .ffill().bfill()
+
+        return table
+
     def make_table(self):
         """Make the usage and statistics table for the last two weeks.
 
@@ -44,20 +88,15 @@ class Osos:
         -------
         table : pd.DataFrame
             Repository usage and statistics table with datetime.date index for
-            the last two weeks not including today and columns for various
+            the last two weeks including today and columns for various
             github and pypi usage metrics.
         """
 
         logger.info('Collecting data for: '
                     f'"{self._git_owner}/{self._git_repo}"')
 
-        d0 = datetime.date.today() - datetime.timedelta(days=1)
-        d1 = datetime.date.today() - datetime.timedelta(days=13)
-        index = pd.date_range(d1, d0, freq='1D').date
-
         table = self._gh.clones()
-        table = table.reindex(index)
-        table = table.join(self._gh.views())
+        table = table.join(self._gh.views(), how='outer')
         iend = table.index.values[-1]
 
         keys = ('{op1}_{op2}_count', '{op1}_{op2}_mean_lifetime',
@@ -81,17 +120,21 @@ class Osos:
         table.at[iend, 'contributors'] = self._gh.contributors()
 
         commits = self._gh.commits(table.index.values)
-        table = table.join(commits)
+        table = table.join(commits, how='outer')
         table.at[iend, 'total_commits'] = self._gh.commit_count()
 
         if self._pypi_name is not None:
             pypi_out = Pypi.get_daily_data(self._pypi_name, table.index.values)
-            table = table.join(pypi_out)
+            table = table.join(pypi_out, how='outer')
+
+        table['updated_on'] = datetime.date.today()
+        table = self.clean_table(table)
 
         return table
 
     def update(self, fpath_out):
-        """Update and save the fpath_out file
+        """Update and save the fpath_out file. The current update data will be
+        used if there are duplicates.
 
         Parameters
         ----------
@@ -112,8 +155,9 @@ class Osos:
             logger.info(f'Updating cached file: {fpath_out}')
             original = pd.read_csv(fpath_out, index_col=0)
             original.index = pd.to_datetime(original.index.values).date
-            mask = ~original.index.isin(table.index.values)
-            table = original[mask].append(table)
+            table = table.append(original)
+            table = table[~table.index.duplicated(keep='first')]
+            table = table.sort_index()
 
         logger.info(f'Saved osos output to: {fpath_out}')
         table.to_csv(fpath_out)
@@ -129,6 +173,7 @@ class Osos:
         Path to .csv config file with columns for name, git_owner, git_repo,
         pypi_name, and fpath_out.
         """
+
         assert os.path.exists(config), 'config must be a valid filepath'
         assert config.endswith('.csv'), 'config must be .csv'
         config = pd.read_csv(config)

@@ -249,16 +249,22 @@ class Github:
         logger.debug(f'Getting commit count for "{self._owner}/{self._repo}"')
         request = self.base_req + '/commits'
         req = self.get_request(request, **kwargs)
-        last_url = req.links['last']['url']
-        match = re.search(r'page=[0-9]*$', last_url)
-        if not match:
-            msg = 'Could not find page=[0-9]*$ in url: {}'.format(last_url)
-            logger.error(msg)
-            raise RuntimeError(msg)
+        num_pages = 2
+        n_last = 0
 
-        num_pages = int(match.group().replace('page=', ''))
-        last_page = self.get_request(last_url, **kwargs)
-        out = len(req.json()) * (num_pages - 1) + len(last_page.json())
+        if 'last' in req.links:
+            last_url = req.links['last']['url']
+            match = re.search(r'page=[0-9]*$', last_url)
+            if not match:
+                msg = f'Could not find page=[0-9]*$ in url: {last_url}'
+                logger.error(msg)
+                raise RuntimeError(msg)
+
+            num_pages = int(match.group().replace('page=', ''))
+            last_page = self.get_request(last_url, **kwargs)
+            n_last = len(last_page.json())
+
+        out = len(req.json()) * (num_pages - 1) + n_last
         return out
 
     def commits(self, date_iter, search_all=False, **kwargs):

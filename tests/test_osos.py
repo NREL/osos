@@ -15,7 +15,6 @@ def test_osos_table():
     """Test basic format of osos output table"""
     osos = Osos('NREL', 'reV', 'nrel-rev')
     table = osos.make_table()
-    print(table)
 
     for col in ('clones', 'views', 'commits', 'pypi_daily'):
         assert col in table
@@ -25,14 +24,14 @@ def test_osos_table():
                 'pulls_closed_mean_lifetime'):
         assert col in table
         assert table[col].dtype == np.float64
-        assert not np.isnan(table[col].values[-1])
-        assert all(np.isnan(table[col].values[:-1]))
+        assert not np.isnan(table[col].values).any()
 
-    assert len(table) == 13
+    assert len(table) == 14
     d0 = datetime.date.today()
-    for nd in range(1, 14):
-        d1 = d0 - datetime.timedelta(days=nd)
-        assert d1 in table.index
+    d1 = datetime.date.today() - datetime.timedelta(days=13)
+    index = pd.date_range(d1, d0, freq='1D').date
+    for d in index:
+        assert d in table.index
 
 
 def test_osos_update():
@@ -42,14 +41,24 @@ def test_osos_update():
         fpath_out = os.path.join(td, 'test.csv')
         osos = Osos('NREL', 'reV', 'nrel-rev')
         truth = osos.make_table()
-        truth.iloc[0:3].to_csv(fpath_out)
+
+        d0 = datetime.date.today() - datetime.timedelta(days=3)
+        d1 = datetime.date.today() - datetime.timedelta(days=16)
+        index = pd.date_range(d1, d0, freq='1D').date
+        truth_mod = truth.copy()
+        truth_mod.index = index
+        truth_mod['updated_on'] = d0
+
+        truth_mod.to_csv(fpath_out)
+        fake_dates = [t for t in truth_mod.index.values
+                      if t not in truth.index.values]
+        assert len(fake_dates) == 3
         with open(fpath_out) as f:
-            assert len(f.readlines()) == 4
+            assert len(f.readlines()) == 15
+
         test = osos.update(fpath_out)
-        assert_frame_equal(truth, test)
-        test = pd.read_csv(fpath_out, index_col=0)
-        test.index = pd.to_datetime(test.index.values).date
-        assert_frame_equal(truth, test)
+        assert all(t in test.index.values for t in truth_mod.index.values)
+        assert all(t in test.index.values for t in fake_dates)
 
 
 def test_osos_new_data():
@@ -64,7 +73,7 @@ def test_osos_new_data():
 
         # this will break if github api spuriously returns a different number
         # of days
-        fake_dates = pd.date_range('20180102', '20180114', freq='1D')
+        fake_dates = pd.date_range('20180101', '20180114', freq='1D')
         truth_drop.index = fake_dates
         truth_drop.to_csv(fpath_out)
 
@@ -72,7 +81,8 @@ def test_osos_new_data():
         disk = pd.read_csv(fpath_out, index_col=0)
         disk.index = pd.to_datetime(disk.index.values).date
 
-        assert_frame_equal(new, disk)
+        cols = [c for c in new.columns if c != 'updated_on']
+        assert_frame_equal(new[cols], disk[cols])
 
         assert all(d in new.index.values for d in fake_dates)
         assert all(d in disk.index.values for d in fake_dates)
