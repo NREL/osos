@@ -2,9 +2,7 @@
 """
 OSOS command line interface (CLI)
 """
-import os
 import click
-import pandas as pd
 import logging
 from rex import init_logger
 from osos.osos import Osos
@@ -19,7 +17,7 @@ logger = logging.getLogger(__name__)
 @click.option('--config', '-c', default=None, required=False,
               type=click.Path(exists=True),
               help='Path to .csv config file with columns for name, '
-              'git_owner, git_repo, pypi_name, and cahce_file. Either input '
+              'git_owner, git_repo, pypi_name, and fpath_out. Either input '
               'this for multiple osos jobs or all of the argument explicitly '
               'for a single osos job.')
 @click.option('--git_owner', '-go', required=False, default=None, type=str,
@@ -53,25 +51,11 @@ def main(ctx, config, git_owner, git_repo, pypi_name, fpath_out, verbose):
     else:
         init_logger('osos', log_level='INFO')
 
-    if c2 and not c1:
+    if c1:
+        Osos.run_config(config)
+    else:
         osos = Osos(git_owner, git_repo, pypi_name=pypi_name)
         osos.update(fpath_out)
-
-    else:
-        assert os.path.exists(config), 'config must be a valid filepath'
-        assert config.endswith('.csv'), 'config must be .csv'
-        config = pd.read_csv(config)
-        required = ('name', 'git_owner', 'git_repo', 'fpath_out')
-        missing = [r for r in required if r not in config]
-        if any(missing):
-            msg = f'Config had missing required columns: {missing}'
-            logger.error(msg)
-            raise KeyError(msg)
-        for _, row in config.iterrows():
-            row = row.to_dict()
-            osos = Osos(row['git_owner'], row['git_repo'],
-                        pypi_name=row.get('pypi_name', None))
-            osos.update(row['fpath_out'])
 
 
 if __name__ == '__main__':

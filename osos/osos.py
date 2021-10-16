@@ -1,6 +1,7 @@
 """
 osos base class.
 """
+import datetime
 import os
 import pandas as pd
 from osos.api_github import Github
@@ -50,7 +51,12 @@ class Osos:
         logger.info('Collecting data for: '
                     f'"{self._git_owner}/{self._git_repo}"')
 
+        d0 = datetime.date.today() - datetime.timedelta(days=1)
+        d1 = datetime.date.today() - datetime.timedelta(days=13)
+        index = pd.date_range(d1, d0, freq='1D').date
+
         table = self._gh.clones()
+        table = table.reindex(index)
         table = table.join(self._gh.views())
         iend = table.index.values[-1]
 
@@ -112,3 +118,30 @@ class Osos:
         logger.info(f'Saved osos output to: {fpath_out}')
         table.to_csv(fpath_out)
         return table
+
+    @classmethod
+    def run_config(cls, config):
+        """Run multiple osos jobs from a csv config.
+
+        Parameters
+        ----------
+        config : str
+        Path to .csv config file with columns for name, git_owner, git_repo,
+        pypi_name, and fpath_out.
+        """
+        assert os.path.exists(config), 'config must be a valid filepath'
+        assert config.endswith('.csv'), 'config must be .csv'
+        config = pd.read_csv(config)
+
+        required = ('name', 'git_owner', 'git_repo', 'fpath_out')
+        missing = [r for r in required if r not in config]
+        if any(missing):
+            msg = f'Config had missing required columns: {missing}'
+            logger.error(msg)
+            raise KeyError(msg)
+
+        for _, row in config.iterrows():
+            row = row.to_dict()
+            osos = cls(row['git_owner'], row['git_repo'],
+                       pypi_name=row.get('pypi_name', None))
+            osos.update(row['fpath_out'])

@@ -15,10 +15,10 @@ def test_osos_table():
     """Test basic format of osos output table"""
     osos = Osos('NREL', 'reV', 'nrel-rev')
     table = osos.make_table()
+    print(table)
 
     for col in ('clones', 'views', 'commits', 'pypi_daily'):
         assert col in table
-        assert table[col].dtype == np.int64
 
     for col in ('total_commits', 'issues_closed_count',
                 'issues_closed_mean_lifetime', 'pulls_closed_count',
