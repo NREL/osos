@@ -39,15 +39,15 @@ def test_osos_update():
     """Test that osos will make a valid file, save it to disk, and update
     appropriately without losing data."""
     with tempfile.TemporaryDirectory() as td:
-        cache_file = os.path.join(td, 'test.csv')
+        fpath_out = os.path.join(td, 'test.csv')
         osos = Osos('NREL', 'reV', 'nrel-rev')
         truth = osos.make_table()
-        truth.iloc[0:3].to_csv(cache_file)
-        with open(cache_file) as f:
+        truth.iloc[0:3].to_csv(fpath_out)
+        with open(fpath_out) as f:
             assert len(f.readlines()) == 4
-        test = osos.update(cache_file)
+        test = osos.update(fpath_out)
         assert_frame_equal(truth, test)
-        test = pd.read_csv(cache_file, index_col=0)
+        test = pd.read_csv(fpath_out, index_col=0)
         test.index = pd.to_datetime(test.index.values).date
         assert_frame_equal(truth, test)
 
@@ -56,7 +56,7 @@ def test_osos_new_data():
     """Test that osos will add new data columns properly and not delete any
     deprecated columns."""
     with tempfile.TemporaryDirectory() as td:
-        cache_file = os.path.join(td, 'test.csv')
+        fpath_out = os.path.join(td, 'test.csv')
         osos = Osos('NREL', 'reV', 'nrel-rev')
         truth = osos.make_table()
         truth['random'] = np.random.uniform(0, 1, len(truth))
@@ -66,10 +66,10 @@ def test_osos_new_data():
         # of days
         fake_dates = pd.date_range('20180102', '20180114', freq='1D')
         truth_drop.index = fake_dates
-        truth_drop.to_csv(cache_file)
+        truth_drop.to_csv(fpath_out)
 
-        new = osos.update(cache_file)
-        disk = pd.read_csv(cache_file, index_col=0)
+        new = osos.update(fpath_out)
+        disk = pd.read_csv(fpath_out, index_col=0)
         disk.index = pd.to_datetime(disk.index.values).date
 
         assert_frame_equal(new, disk)

@@ -1,3 +1,5 @@
+click
+nrel-rex
 numpy
 pandas
 pypistats

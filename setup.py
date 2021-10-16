@@ -51,6 +51,7 @@ setup(
     long_description=readme,
     author="Grant Buster",
     author_email="grant.buster@nrel.gov",
+    entry_points={"console_scripts": ["osos=osos.cli:main"]},
     url="https://nrel.github.io/osos/",
     packages=find_packages(),
     package_dir={"osos": "osos"},

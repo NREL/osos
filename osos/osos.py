@@ -84,30 +84,31 @@ class Osos:
 
         return table
 
-    def update(self, cache_file):
-        """Update and save the cache file
+    def update(self, fpath_out):
+        """Update and save the fpath_out file
 
         Parameters
         ----------
-        cache_file : str
+        fpath_out : str
             Full filepath to a .csv that the osos table should be saved and
             updated at.
 
         Returns
         -------
         table : pd.DataFrame
-            osos table including the original data from cache_file (if exists)
+            osos table including the original data from fpath_out (if exists)
             updated with the currently available data from github and pypi.
-            This is also saved to cache_file.
+            This is also saved to fpath_out.
         """
 
         table = self.make_table()
-        if os.path.exists(cache_file):
-            logger.info(f'Updating cached file: {cache_file}')
-            original = pd.read_csv(cache_file, index_col=0)
+        if os.path.exists(fpath_out):
+            logger.info(f'Updating cached file: {fpath_out}')
+            original = pd.read_csv(fpath_out, index_col=0)
             original.index = pd.to_datetime(original.index.values).date
             mask = ~original.index.isin(table.index.values)
             table = original[mask].append(table)
 
-        table.to_csv(cache_file)
+        logger.info(f'Saved osos output to: {fpath_out}')
+        table.to_csv(fpath_out)
         return table
