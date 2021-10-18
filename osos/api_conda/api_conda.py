@@ -49,6 +49,8 @@ class Conda:
             logger.error(msg)
             raise IOError(msg)
 
+        # could probably use an html parser but this is easy since we're only
+        # looking for one number
         regex = re.search("<span>[0-9]*</span> total downloads", out.text)
 
         downloads = 0

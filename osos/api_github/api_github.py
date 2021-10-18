@@ -70,10 +70,13 @@ class Github:
             for count, lifteimtes, and mean/median lifetime in days
         """
 
+        # github api has max 100 items per page. Use max to reduce the total
+        # number of requests.
         if 'params' in kwargs:
             kwargs['params']['state'] = state
+            kwargs['params']['per_page'] = 100
         else:
-            kwargs['params'] = {'state': state}
+            kwargs['params'] = {'state': state, 'per_page': 100}
 
         request = self.base_req + f'/{option}'
         items = self.get_generator(request, **kwargs)
