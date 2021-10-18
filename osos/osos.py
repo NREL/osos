@@ -4,10 +4,13 @@ osos base class.
 import datetime
 import os
 import pandas as pd
+import logging
 from osos.api_github import Github
 from osos.api_pypi import Pypi
-import logging
 
+
+OSOS_DIR = os.path.dirname(os.path.realpath(__file__))
+DATA_DIR = os.path.join(os.path.dirname(OSOS_DIR), 'data')
 
 logger = logging.getLogger(__name__)
 
@@ -22,13 +25,15 @@ class Osos:
         Parameters
         ----------
         git_owner : str
-            Github repository owner, e.g. https://github.com/{owner}/{repo}
+            Github repository owner, e.g. https://github.com/{owner}/{repo}.
+            Case insensitive.
         git_repo : str
-            Github repository name, e.g. https://github.com/{owner}/{repo}
+            Github repository name, e.g. https://github.com/{owner}/{repo}.
+            Case insensitive.
         pypi_name : str | None
             pypi package name. Note that this should include the prefix for
             nrel packages e.g. reV -> nrel-rev. This can be None if there is no
-            pypi package.
+            pypi package. Case insensitive.
         """
 
         self._git_owner = git_owner
@@ -140,7 +145,8 @@ class Osos:
         ----------
         fpath_out : str
             Full filepath to a .csv that the osos table should be saved and
-            updated at.
+            updated at. This path can include the "DATA_DIR" keyword which will
+            get replaced by the system location of the /osos/data/ directory.
 
         Returns
         -------
@@ -149,7 +155,7 @@ class Osos:
             updated with the currently available data from github and pypi.
             This is also saved to fpath_out.
         """
-
+        fpath_out = fpath_out.replace('DATA_DIR', DATA_DIR)
         table = self.make_table()
         if os.path.exists(fpath_out):
             logger.info(f'Updating cached file: {fpath_out}')
@@ -187,6 +193,9 @@ class Osos:
 
         for _, row in config.iterrows():
             row = row.to_dict()
+            pypi_name = row.get('pypi_name', None)
+            pypi_name = pypi_name if isinstance(pypi_name, str) else None
             osos = cls(row['git_owner'], row['git_repo'],
-                       pypi_name=row.get('pypi_name', None))
-            osos.update(row['fpath_out'])
+                       pypi_name=pypi_name)
+            fpath_out = row['fpath_out'].replace('DATA_DIR', DATA_DIR)
+            osos.update(fpath_out)

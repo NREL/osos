@@ -38,12 +38,17 @@ class Github:
         self.base_req = self.BASE_REQ.format(owner=owner, repo=repo)
 
         self.token = token
-        if token is None:
-            self.token = os.getenv('GITHUB_TOKEN', None)
         if self.token is None:
-            msg = 'Could not find environment variable "GITHUB_TOKEN".'
-            logger.error(msg)
-            raise OSError(msg)
+            self.token = os.getenv('GITHUB_TOKEN', None)
+            if self.token is None:
+                msg = 'Could not find environment variable "GITHUB_TOKEN".'
+                logger.error(msg)
+                raise OSError(msg)
+            else:
+                logger.debug('Using github token from environment variable '
+                             '"GITHUB_TOKEN".')
+        else:
+            logger.debug('Using github token from kwarg input to osos.')
 
     def _issues_pulls(self, option='issues', state='open', **kwargs):
         """Get open/closed issues/pulls for the repo (all have the same

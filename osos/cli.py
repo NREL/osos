@@ -22,17 +22,19 @@ logger = logging.getLogger(__name__)
               'for a single osos job.')
 @click.option('--git_owner', '-go', required=False, default=None, type=str,
               help='Github repository owner, e.g. '
-              'https://github.com/{git_owner}/{git_repo}')
+              'https://github.com/{git_owner}/{git_repo}. Case insensitive.')
 @click.option('--git_repo', '-gr', required=False, default=None, type=str,
               help='Github repository name, e.g. '
-              'https://github.com/{git_owner}/{git_repo}')
+              'https://github.com/{git_owner}/{git_repo}. Case insensitive.')
 @click.option('--pypi_name', '-pn', required=False, default=None, type=str,
               help='pypi package name. Note that this should include the '
               'prefix for nrel packages e.g. reV -> nrel-rev. This can be '
-              'None if there is no pypi package.')
+              'None if there is no pypi package. Case insensitive.')
 @click.option('--fpath_out', '-f', required=False, default=None, type=str,
               help='Output file to save the osos output table. If the file '
-              'exists, it will be updated with the latest data.')
+              'exists, it will be updated with the latest data. This path can '
+              'include the "DATA_DIR" keyword which will get replaced by the '
+              'system location of the /osos/data/ directory.')
 @click.option('-v', '--verbose', is_flag=True,
               help='Flag to turn on debug logging. Default is not verbose.')
 @click.pass_context
@@ -40,7 +42,9 @@ def main(ctx, config, git_owner, git_repo, pypi_name, fpath_out, verbose):
     """OSOS command line interface (CLI)."""
     ctx.ensure_object(dict)
 
-    msg = 'Need to input either config or (git_owner & git_repo & fpath_out)'
+    msg = ('Need to input either config or (git_owner & git_repo & '
+           'fpath_out)! Also maybe try "osos --help" to see the cli '
+           'help page.')
     c1 = (config is not None)
     c2 = (git_owner is not None and git_repo is not None
           and fpath_out is not None)
