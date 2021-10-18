@@ -30,6 +30,12 @@ logger = logging.getLogger(__name__)
               help='pypi package name. Note that this should include the '
               'prefix for nrel packages e.g. reV -> nrel-rev. This can be '
               'None if there is no pypi package. Case insensitive.')
+@click.option('--conda_org', '-co', required=False, default=None, type=str,
+              help='Conda organization name, for example: '
+              'https://anaconda.org/{org}/{name}. Case insensitive.')
+@click.option('--conda_name', '-cn', required=False, default=None, type=str,
+              help='Conda package name, for example: '
+              'https://anaconda.org/{org}/{name}. Case insensitive.')
 @click.option('--fpath_out', '-f', required=False, default=None, type=str,
               help='Output file to save the osos output table. If the file '
               'exists, it will be updated with the latest data. This path can '
@@ -38,7 +44,8 @@ logger = logging.getLogger(__name__)
 @click.option('-v', '--verbose', is_flag=True,
               help='Flag to turn on debug logging. Default is not verbose.')
 @click.pass_context
-def main(ctx, config, git_owner, git_repo, pypi_name, fpath_out, verbose):
+def main(ctx, config, git_owner, git_repo, pypi_name, conda_org, conda_name,
+         fpath_out, verbose):
     """OSOS command line interface (CLI)."""
     ctx.ensure_object(dict)
 
@@ -58,7 +65,8 @@ def main(ctx, config, git_owner, git_repo, pypi_name, fpath_out, verbose):
     if c1:
         Osos.run_config(config)
     else:
-        osos = Osos(git_owner, git_repo, pypi_name=pypi_name)
+        osos = Osos(git_owner, git_repo, pypi_name=pypi_name,
+                    conda_org=conda_org, conda_name=conda_name)
         osos.update(fpath_out)
 
 

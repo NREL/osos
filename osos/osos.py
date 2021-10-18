@@ -7,6 +7,7 @@ import pandas as pd
 import logging
 from osos.api_github import Github
 from osos.api_pypi import Pypi
+from osos.api_conda import Conda
 
 
 OSOS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -20,7 +21,8 @@ class Osos:
     repo/package.
     """
 
-    def __init__(self, git_owner, git_repo, pypi_name=None):
+    def __init__(self, git_owner, git_repo, pypi_name=None, conda_org=None,
+                 conda_name=None):
         """
         Parameters
         ----------
@@ -34,11 +36,19 @@ class Osos:
             pypi package name. Note that this should include the prefix for
             nrel packages e.g. reV -> nrel-rev. This can be None if there is no
             pypi package. Case insensitive.
+        conda_org : str
+            Conda organization name, for example:
+            https://anaconda.org/{org}/{name}. Case insensitive.
+        conda_name : str
+            Conda package name, for example:
+            https://anaconda.org/{org}/{name}. Case insensitive.
         """
 
         self._git_owner = git_owner
         self._git_repo = git_repo
         self._pypi_name = pypi_name
+        self._conda_org = conda_org
+        self._conda_name = conda_name
 
         self._gh = Github(self._git_owner, self._git_repo)
 
@@ -60,29 +70,21 @@ class Osos:
             the last two weeks including today and columns for various
             github and pypi usage metrics.
         """
+
         d0 = datetime.date.today()
         d1 = datetime.date.today() - datetime.timedelta(days=13)
         index = pd.date_range(d1, d0, freq='1D').date
         table = table.reindex(index)
 
-        cols = ['clones', 'clones_unique', 'views', 'views_unique', 'commits']
-        table[cols] = table[cols].fillna(0)
+        timeseries_cols = ['clones', 'clones_unique', 'views', 'views_unique',
+                           'commits', 'pypi_daily']
+        timeseries_cols = [c for c in table.columns if c in timeseries_cols]
+        other_cols = [c for c in table.columns if c not in timeseries_cols]
 
-        cols = ['issues_closed_count', 'issues_closed_mean_lifetime',
-                'issues_closed_median_lifetime', 'issues_open_count',
-                'issues_open_mean_lifetime', 'issues_open_median_lifetime',
-                'pulls_closed_count', 'pulls_closed_mean_lifetime',
-                'pulls_closed_median_lifetime', 'pulls_open_count',
-                'pulls_open_mean_lifetime', 'pulls_open_median_lifetime',
-                'forks', 'stargazers', 'subscribers', 'contributors',
-                'total_commits', 'updated_on']
-        table[cols] = table[cols].ffill().bfill()
-        table[cols] = table[cols].fillna(0)
+        table[timeseries_cols] = table[timeseries_cols].fillna(0)
 
-        if 'pypi_daily' in table:
-            table['pypi_daily'] = table['pypi_daily'].fillna(0)
-            table['pypi_180_cumulative'] = table['pypi_180_cumulative']\
-                .ffill().bfill()
+        table[other_cols] = table[other_cols].ffill().bfill()
+        table[other_cols] = table[other_cols].fillna(0)
 
         return table
 
@@ -102,7 +104,6 @@ class Osos:
 
         table = self._gh.clones()
         table = table.join(self._gh.views(), how='outer')
-        iend = table.index.values[-1]
 
         keys = ('{op1}_{op2}_count', '{op1}_{op2}_mean_lifetime',
                 '{op1}_{op2}_median_lifetime')
@@ -116,21 +117,25 @@ class Osos:
         for ip_dict, (op1, op2) in zip(issues_pulls, options):
             for k in keys:
                 column = k.format(op1=op1, op2=op2)
-                table.at[iend, column] = ip_dict[column]
+                table[column] = ip_dict[column]
                 table[column] = table[column].round(1)
 
-        table.at[iend, 'forks'] = self._gh.forks()
-        table.at[iend, 'stargazers'] = self._gh.stargazers()
-        table.at[iend, 'subscribers'] = self._gh.subscribers()
-        table.at[iend, 'contributors'] = self._gh.contributors()
+        table['forks'] = self._gh.forks()
+        table['stargazers'] = self._gh.stargazers()
+        table['subscribers'] = self._gh.subscribers()
+        table['contributors'] = self._gh.contributors()
 
         commits = self._gh.commits(table.index.values)
         table = table.join(commits, how='outer')
-        table.at[iend, 'total_commits'] = self._gh.commit_count()
+        table['total_commits'] = self._gh.commit_count()
 
         if self._pypi_name is not None:
             pypi_out = Pypi.get_daily_data(self._pypi_name, table.index.values)
             table = table.join(pypi_out, how='outer')
+
+        if self._conda_org is not None and self._conda_name is not None:
+            conda_out = Conda.get_data(self._conda_org, self._conda_name)
+            table['conda_total_downloads'] = conda_out
 
         table['updated_on'] = datetime.date.today()
         table = self.clean_table(table)
@@ -193,9 +198,17 @@ class Osos:
 
         for _, row in config.iterrows():
             row = row.to_dict()
+
+            conda_org = row.get('conda_org', None)
+            conda_name = row.get('conda_name', None)
             pypi_name = row.get('pypi_name', None)
+            conda_org = conda_org if isinstance(conda_org, str) else None
+            conda_name = conda_name if isinstance(conda_name, str) else None
             pypi_name = pypi_name if isinstance(pypi_name, str) else None
+
             osos = cls(row['git_owner'], row['git_repo'],
-                       pypi_name=pypi_name)
+                       pypi_name=pypi_name,
+                       conda_org=conda_org,
+                       conda_name=conda_name)
             fpath_out = row['fpath_out'].replace('DATA_DIR', DATA_DIR)
             osos.update(fpath_out)
