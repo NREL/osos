@@ -6,6 +6,7 @@ from click.testing import CliRunner
 import pandas as pd
 import os
 import tempfile
+from rex.utilities import unstupify_path
 from osos import TEST_DATA_DIR
 from osos.cli import main
 
@@ -13,7 +14,7 @@ from osos.cli import main
 def test_cli():
     """Test running the cli with input args for a single run."""
     with tempfile.TemporaryDirectory() as td:
-        fp = td + '/test.csv'
+        fp = unstupify_path(td) + '/test.csv'
         runner = CliRunner()
         out = runner.invoke(main, f"-go NREL -gr reV -pn nrel-rev -f {fp}")
         assert out.exit_code == 0
@@ -25,8 +26,8 @@ def test_cli_config():
     source = pd.read_csv(os.path.join(TEST_DATA_DIR, 'test_config.csv'),
                          index_col=0)
     with tempfile.TemporaryDirectory() as td:
-        fpath_out1 = td + '/osos_rev.csv'
-        fpath_out2 = td + '/osos_rex.csv'
+        fpath_out1 = unstupify_path(td) + '/osos_rev.csv'
+        fpath_out2 = unstupify_path(td) + '/osos_rex.csv'
         config = td + '/test_config.csv'
         source.at['rev', 'fpath_out'] = fpath_out1
         source.at['rex', 'fpath_out'] = fpath_out2
