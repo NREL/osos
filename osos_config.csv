@@ -6,3 +6,7 @@ nrel,revx,nrel-revx,nrel,nrel-revx,DATA_DIR/NAME.csv
 nrel,nrwal,nrel-nrwal,nrel,nrel-nrwal,DATA_DIR/NAME.csv
 nrel,phygnn,nrel-phygnn,nrel,nrel-phygnn,DATA_DIR/NAME.csv
 nrel,cloud_fs,nrel-cloud_fs,nrel,nrel-cloud_fs,DATA_DIR/NAME.csv
+nrel,sam,,,,DATA_DIR/NAME.csv
+nrel,pysam,nrel-pysam,nrel,nrel-pysam,DATA_DIR/NAME.csv
+nrel,floris,floris,conda-forge,floris,DATA_DIR/NAME.csv
+wisdem,orbit,orbit-nrel,,,DATA_DIR/NAME.csv
