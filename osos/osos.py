@@ -5,6 +5,7 @@ import datetime
 import os
 import pandas as pd
 import logging
+from warnings import warn
 from osos.api_github import Github
 from osos.api_pypi import Pypi
 from osos.api_conda import Conda
@@ -52,8 +53,11 @@ class Osos:
 
         self._gh = Github(self._git_owner, self._git_repo)
 
-    @staticmethod
-    def clean_table(table):
+        d0 = datetime.date.today()
+        d1 = datetime.date.today() - datetime.timedelta(days=13)
+        self._index = pd.date_range(d1, d0, freq='1D').date
+
+    def clean_table(self, table):
         """Fill nan values and make sure the timeseries index has 14 days.
 
         Parameters
@@ -71,10 +75,7 @@ class Osos:
             github and pypi usage metrics.
         """
 
-        d0 = datetime.date.today()
-        d1 = datetime.date.today() - datetime.timedelta(days=13)
-        index = pd.date_range(d1, d0, freq='1D').date
-        table = table.reindex(index)
+        table = table.reindex(self._index)
 
         timeseries_cols = ['clones', 'clones_unique', 'views', 'views_unique',
                            'commits', 'pypi_daily']
@@ -102,8 +103,17 @@ class Osos:
         logger.info('Collecting data for: '
                     f'"{self._git_owner}/{self._git_repo}"')
 
-        table = self._gh.clones()
-        table = table.join(self._gh.views(), how='outer')
+        table = pd.DataFrame(index=self._index)
+
+        try:
+            table = table.join(self._gh.clones())
+            table = table.join(self._gh.views())
+        except OSError:
+            msg = ('Could not get github clone/views data from '
+                   f'"{self._git_owner}/{self._git_repo}", '
+                   'try setting a GITHUB_TOKEN with push permissions.')
+            warn(msg)
+            logger.warning(msg)
 
         issues_pulls = (self._gh.issues_closed(),
                         self._gh.issues_open(),
@@ -120,13 +130,12 @@ class Osos:
         table['subscribers'] = self._gh.subscribers()
         table['contributors'] = self._gh.contributors()
 
-        commits = self._gh.commits(table.index.values)
-        table = table.join(commits, how='outer')
+        table = table.join(self._gh.commits(self._index))
         table['total_commits'] = self._gh.commit_count()
 
         if self._pypi_name is not None:
             pypi_out = Pypi.get_daily_data(self._pypi_name, table.index.values)
-            table = table.join(pypi_out, how='outer')
+            table = table.join(pypi_out)
 
         if self._conda_org is not None and self._conda_name is not None:
             conda_out = Conda.get_data(self._conda_org, self._conda_name)

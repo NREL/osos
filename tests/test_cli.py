@@ -15,25 +15,24 @@ def test_cli():
     with tempfile.TemporaryDirectory() as td:
         fp = str(td).replace('\\', '/') + '/test.csv'
         runner = CliRunner()
-        out = runner.invoke(main, f"-go NREL -gr reV -pn nrel-rev -f {fp}")
+        out = runner.invoke(main, f"-go NREL -gr reV -pn nrel-rev -f {fp} -v")
         assert out.exit_code == 0
         assert os.path.exists(fp)
 
 
 def test_cli_config():
     """Test running the cli with a config input for multiple rex runs."""
-    source = pd.read_csv(os.path.join(TEST_DATA_DIR, 'test_config.csv'),
-                         index_col=0)
+    source = pd.read_csv(os.path.join(TEST_DATA_DIR, 'test_config.csv'))
     with tempfile.TemporaryDirectory() as td:
         fpath_out1 = str(td).replace('\\', '/') + '/osos_rev.csv'
         fpath_out2 = str(td).replace('\\', '/') + '/osos_rex.csv'
         config = str(td).replace('\\', '/') + '/test_config.csv'
-        source.at['rev', 'fpath_out'] = fpath_out1
-        source.at['rex', 'fpath_out'] = fpath_out2
+        source.at[0, 'fpath_out'] = fpath_out1
+        source.at[1, 'fpath_out'] = fpath_out2
         source.to_csv(config)
 
         runner = CliRunner()
-        out = runner.invoke(main, f"-c {config}")
+        out = runner.invoke(main, f"-c {config} -v")
         assert out.exit_code == 0
         assert os.path.exists(fpath_out1)
         assert os.path.exists(fpath_out2)
