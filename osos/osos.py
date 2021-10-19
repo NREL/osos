@@ -105,8 +105,6 @@ class Osos:
         table = self._gh.clones()
         table = table.join(self._gh.views(), how='outer')
 
-        keys = ('{op1}_{op2}_count', '{op1}_{op2}_mean_lifetime',
-                '{op1}_{op2}_median_lifetime')
         issues_pulls = (self._gh.issues_closed(),
                         self._gh.issues_open(),
                         self._gh.pulls_closed(),
@@ -114,11 +112,8 @@ class Osos:
         options = (('issues', 'closed'), ('issues', 'open'),
                    ('pulls', 'closed'), ('pulls', 'open'))
 
-        for ip_dict, (op1, op2) in zip(issues_pulls, options):
-            for k in keys:
-                column = k.format(op1=op1, op2=op2)
-                table[column] = ip_dict[column]
-                table[column] = table[column].round(1)
+        for ip_count, (op1, op2) in zip(issues_pulls, options):
+            table[f'{op1}_{op2}'] = ip_count
 
         table['forks'] = self._gh.forks()
         table['stargazers'] = self._gh.stargazers()
@@ -149,9 +144,11 @@ class Osos:
         Parameters
         ----------
         fpath_out : str
-            Full filepath to a .csv that the osos table should be saved and
-            updated at. This path can include the "DATA_DIR" keyword which will
-            get replaced by the system location of the /osos/data/ directory.
+            Output file to save the osos output table. If the file exists, it
+            will be updated with the latest data. This path can include the
+            keywords "DATA_DIR" and "NAME" which will get replaced by the
+            system location of the /osos/data/ directory and the github repo
+            name, respectively.
 
         Returns
         -------
@@ -160,7 +157,10 @@ class Osos:
             updated with the currently available data from github and pypi.
             This is also saved to fpath_out.
         """
+
         fpath_out = fpath_out.replace('DATA_DIR', DATA_DIR)
+        fpath_out = fpath_out.replace('NAME', self._git_repo)
+
         table = self.make_table()
         if os.path.exists(fpath_out):
             logger.info(f'Updating cached file: {fpath_out}')
@@ -181,15 +181,15 @@ class Osos:
         Parameters
         ----------
         config : str
-        Path to .csv config file with columns for name, git_owner, git_repo,
-        pypi_name, and fpath_out.
+            Path to .csv config file with columns for git_owner, git_repo,
+            fpath_out, and (optionally) pypi_name, conda_org, and conda_name.
         """
 
         assert os.path.exists(config), 'config must be a valid filepath'
         assert config.endswith('.csv'), 'config must be .csv'
         config = pd.read_csv(config)
 
-        required = ('name', 'git_owner', 'git_repo', 'fpath_out')
+        required = ('git_owner', 'git_repo', 'fpath_out')
         missing = [r for r in required if r not in config]
         if any(missing):
             msg = f'Config had missing required columns: {missing}'
@@ -206,9 +206,12 @@ class Osos:
             conda_name = conda_name if isinstance(conda_name, str) else None
             pypi_name = pypi_name if isinstance(pypi_name, str) else None
 
+            fpath_out = row['fpath_out'].replace('DATA_DIR', DATA_DIR)
+            fpath_out = row['fpath_out'].replace('NAME', row['git_repo'])
+
             osos = cls(row['git_owner'], row['git_repo'],
                        pypi_name=pypi_name,
                        conda_org=conda_org,
                        conda_name=conda_name)
-            fpath_out = row['fpath_out'].replace('DATA_DIR', DATA_DIR)
+
             osos.update(fpath_out)

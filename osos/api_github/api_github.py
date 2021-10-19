@@ -50,7 +50,8 @@ class Github:
         else:
             logger.debug('Using github token from kwarg input to osos.')
 
-    def _issues_pulls(self, option='issues', state='open', **kwargs):
+    def _issues_pulls(self, option='issues', state='open', get_lifetimes=False,
+                      **kwargs):
         """Get open/closed issues/pulls for the repo (all have the same
         general parsing format)
 
@@ -60,14 +61,22 @@ class Github:
             "issues" or "pulls"
         state : str
             "open" or "closed"
+        get_lifetimes : bool
+            Flag to get the lifetime statistics of issues/pulls. Default is
+            false to reduce number of API queries. Turning this on requires
+            that we get the full data for every issue/pull. It is recommended
+            that users retrieve lifetime statistics manually when desired and
+            not as part of an automated OSOS workflow.
         kwargs : dict
             Optional kwargs to get passed to requests.get()
 
         Returns
         -------
-        out : dict
-            Namespace with keys: "{option}_{state}" and "{option}_{state}_*"
-            for count, lifteimtes, and mean/median lifetime in days
+        out : int | dict
+            Integer count of the number of issues/pulls if get_lifetimes=False,
+            or a dict Namespace with keys: "{option}_{state}" and
+            "{option}_{state}_*" for count, lifteimtes, and mean/median
+            lifetime in days
         """
 
         # github api has max 100 items per page. Use max to reduce the total
@@ -79,40 +88,54 @@ class Github:
             kwargs['params'] = {'state': state, 'per_page': 100}
 
         request = self.base_req + f'/{option}'
-        items = self.get_generator(request, **kwargs)
 
-        numbers = []
-        lifetimes = []
-        for item in items:
-            d0 = item['created_at']
-            d1 = item['closed_at']
-            d0 = datetime.datetime.strptime(d0, self.TIME_FORMAT)
-            if state == 'closed' and d1 is not None:
-                d1 = datetime.datetime.strptime(d1, self.TIME_FORMAT)
-            elif state == 'open':
-                d1 = datetime.datetime.now()
+        if not get_lifetimes and option == 'pulls':
+            out = self._total_count(request, **kwargs)
+            return out
 
-            assert d1 is not None, f'Bad final date for: {item}'
-
+        elif not get_lifetimes and option == 'issues':
             # pulls get listed as issues but not the other way around
-            condition_1 = option == 'pulls'
-            condition_2 = option == 'issues' and 'pull_request' not in item
+            i_out = self._total_count(request, **kwargs)
+            request = self.base_req + '/pulls'
+            p_out = self._total_count(request, **kwargs)
+            out = i_out - p_out
+            return out
 
-            if condition_1 or condition_2:
-                numbers.append(item['number'])
-                lifetime = (d1 - d0).total_seconds() / (24 * 3600)
-                lifetimes.append(lifetime)
+        else:
+            items = self.get_generator(request, **kwargs)
 
-        mean = np.nan if not any(lifetimes) else np.mean(lifetimes)
-        median = np.nan if not any(lifetimes) else np.median(lifetimes)
-        out = {f'{option}_{state}': numbers,
-               f'{option}_{state}_count': len(numbers),
-               f'{option}_{state}_lifetimes': lifetimes,
-               f'{option}_{state}_mean_lifetime': mean,
-               f'{option}_{state}_median_lifetime': median,
-               }
+            numbers = []
+            lifetimes = []
+            for item in items:
+                d0 = item['created_at']
+                d1 = item['closed_at']
+                d0 = datetime.datetime.strptime(d0, self.TIME_FORMAT)
+                if state == 'closed' and d1 is not None:
+                    d1 = datetime.datetime.strptime(d1, self.TIME_FORMAT)
+                elif state == 'open':
+                    d1 = datetime.datetime.now()
 
-        return out
+                assert d1 is not None, f'Bad final date for: {item}'
+
+                # pulls get listed as issues but not the other way around
+                condition_1 = option == 'pulls'
+                condition_2 = option == 'issues' and 'pull_request' not in item
+
+                if condition_1 or condition_2:
+                    numbers.append(item['number'])
+                    lifetime = (d1 - d0).total_seconds() / (24 * 3600)
+                    lifetimes.append(lifetime)
+
+            mean = np.nan if not any(lifetimes) else np.mean(lifetimes)
+            median = np.nan if not any(lifetimes) else np.median(lifetimes)
+            out = {f'{option}_{state}': numbers,
+                   f'{option}_{state}_count': len(numbers),
+                   f'{option}_{state}_lifetimes': lifetimes,
+                   f'{option}_{state}_mean_lifetime': mean,
+                   f'{option}_{state}_median_lifetime': median,
+                   }
+
+            return out
 
     def _traffic(self, option='clones', **kwargs):
         """Get the daily github repo traffic data for the last two weeks
@@ -139,6 +162,41 @@ class Github:
         out.index.name = None
         out = out.rename({'count': option, 'uniques': f'{option}_unique'},
                          axis=1)
+        return out
+
+    def _total_count(self, request, **kwargs):
+        """Get the total count of a request object without querying every page
+
+        Parameters
+        ----------
+        request : str
+            Request URL, example: "https://api.github.com/repos/NREL/reV/pulls"
+        kwargs : dict
+            Optional kwargs to get passed to requests.get()
+
+        Returns
+        -------
+        out : int
+            Total number of items in all pages of the request
+        """
+
+        req = self.get_request(request, **kwargs)
+        num_pages = 1
+        n_last = 0
+
+        if 'last' in req.links:
+            last_url = req.links['last']['url']
+            match = re.search(r'page=[0-9]*$', last_url)
+            if not match:
+                msg = f'Could not find page=[0-9]*$ in url: {last_url}'
+                logger.error(msg)
+                raise RuntimeError(msg)
+
+            num_pages = int(match.group().replace('page=', '')) - 1
+            last_page = self.get_request(last_url, **kwargs)
+            n_last = len(last_page.json())
+
+        out = len(req.json()) * num_pages + n_last
         return out
 
     def get_request(self, request, **kwargs):
@@ -236,9 +294,7 @@ class Github:
         """
         logger.debug(f'Getting contributors for "{self._owner}/{self._repo}"')
         request = self.base_req + '/contributors'
-        count = 0
-        for _ in self.get_generator(request, **kwargs):
-            count += 1
+        count = self._total_count(request, **kwargs)
         return count
 
     def commit_count(self, **kwargs):
@@ -256,23 +312,7 @@ class Github:
         """
         logger.debug(f'Getting commit count for "{self._owner}/{self._repo}"')
         request = self.base_req + '/commits'
-        req = self.get_request(request, **kwargs)
-        num_pages = 2
-        n_last = 0
-
-        if 'last' in req.links:
-            last_url = req.links['last']['url']
-            match = re.search(r'page=[0-9]*$', last_url)
-            if not match:
-                msg = f'Could not find page=[0-9]*$ in url: {last_url}'
-                logger.error(msg)
-                raise RuntimeError(msg)
-
-            num_pages = int(match.group().replace('page=', ''))
-            last_page = self.get_request(last_url, **kwargs)
-            n_last = len(last_page.json())
-
-        out = len(req.json()) * (num_pages - 1) + n_last
+        out = self._total_count(request, **kwargs)
         return out
 
     def commits(self, date_iter, search_all=False, **kwargs):
@@ -352,16 +392,20 @@ class Github:
         """
         logger.debug(f'Getting forks for "{self._owner}/{self._repo}"')
         request = self.base_req + '/forks'
-        count = 0
-        for _ in self.get_generator(request, **kwargs):
-            count += 1
+        count = self._total_count(request, **kwargs)
         return count
 
-    def issues_closed(self, **kwargs):
+    def issues_closed(self, get_lifetimes=False, **kwargs):
         """Get data on the closed repo issues.
 
         Parameters
         ----------
+        get_lifetimes : bool
+            Flag to get the lifetime statistics of issues/pulls. Default is
+            false to reduce number of API queries. Turning this on requires
+            that we get the full data for every issue/pull. It is recommended
+            that users retrieve lifetime statistics manually when desired and
+            not as part of an automated OSOS workflow.
         kwargs : dict
             Optional kwargs to get passed to requests.get()
 
@@ -372,14 +416,21 @@ class Github:
             for count, lifteimtes, and mean/median lifetime in days
         """
         logger.debug(f'Getting closed issues for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='issues', state='closed', **kwargs)
+        out = self._issues_pulls(option='issues', state='closed',
+                                 get_lifetimes=get_lifetimes, **kwargs)
         return out
 
-    def issues_open(self, **kwargs):
+    def issues_open(self, get_lifetimes=False, **kwargs):
         """Get data on the open repo issues.
 
         Parameters
         ----------
+        get_lifetimes : bool
+            Flag to get the lifetime statistics of issues/pulls. Default is
+            false to reduce number of API queries. Turning this on requires
+            that we get the full data for every issue/pull. It is recommended
+            that users retrieve lifetime statistics manually when desired and
+            not as part of an automated OSOS workflow.
         kwargs : dict
             Optional kwargs to get passed to requests.get()
 
@@ -390,14 +441,21 @@ class Github:
             for count, lifteimtes, and mean/median lifetime in days
         """
         logger.debug(f'Getting open issues for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='issues', state='open', **kwargs)
+        out = self._issues_pulls(option='issues', state='open',
+                                 get_lifetimes=get_lifetimes, **kwargs)
         return out
 
-    def pulls_closed(self, **kwargs):
+    def pulls_closed(self, get_lifetimes=False, **kwargs):
         """Get data on the closed repo pull requests.
 
         Parameters
         ----------
+        get_lifetimes : bool
+            Flag to get the lifetime statistics of issues/pulls. Default is
+            false to reduce number of API queries. Turning this on requires
+            that we get the full data for every issue/pull. It is recommended
+            that users retrieve lifetime statistics manually when desired and
+            not as part of an automated OSOS workflow.
         kwargs : dict
             Optional kwargs to get passed to requests.get()
 
@@ -408,14 +466,21 @@ class Github:
             for count, lifteimtes, and mean/median lifetime in days
         """
         logger.debug(f'Getting closed pulls for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='pulls', state='closed', **kwargs)
+        out = self._issues_pulls(option='pulls', state='closed',
+                                 get_lifetimes=get_lifetimes, **kwargs)
         return out
 
-    def pulls_open(self, **kwargs):
+    def pulls_open(self, get_lifetimes=False, **kwargs):
         """Get data on the open repo pull requests.
 
         Parameters
         ----------
+        get_lifetimes : bool
+            Flag to get the lifetime statistics of issues/pulls. Default is
+            false to reduce number of API queries. Turning this on requires
+            that we get the full data for every issue/pull. It is recommended
+            that users retrieve lifetime statistics manually when desired and
+            not as part of an automated OSOS workflow.
         kwargs : dict
             Optional kwargs to get passed to requests.get()
 
@@ -426,7 +491,8 @@ class Github:
             for count, lifteimtes, and mean/median lifetime in days
         """
         logger.debug(f'Getting open pulls for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='pulls', state='open', **kwargs)
+        out = self._issues_pulls(option='pulls', state='open',
+                                 get_lifetimes=get_lifetimes, **kwargs)
         return out
 
     def stargazers(self, **kwargs):
@@ -444,9 +510,7 @@ class Github:
         """
         logger.debug(f'Getting stargazers for "{self._owner}/{self._repo}"')
         request = self.base_req + '/stargazers'
-        count = 0
-        for _ in self.get_generator(request, **kwargs):
-            count += 1
+        count = self._total_count(request, **kwargs)
         return count
 
     def subscribers(self, **kwargs):
@@ -464,9 +528,7 @@ class Github:
         """
         logger.debug(f'Getting subscribers for "{self._owner}/{self._repo}"')
         request = self.base_req + '/subscribers'
-        count = 0
-        for _ in self.get_generator(request, **kwargs):
-            count += 1
+        count = self._total_count(request, **kwargs)
         return count
 
     def views(self, **kwargs):

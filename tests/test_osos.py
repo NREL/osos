@@ -19,11 +19,8 @@ def test_osos_table():
     for col in ('clones', 'views', 'commits', 'pypi_daily'):
         assert col in table
 
-    for col in ('total_commits', 'issues_closed_count',
-                'issues_closed_mean_lifetime', 'pulls_closed_count',
-                'pulls_closed_mean_lifetime'):
+    for col in ('total_commits', 'issues_closed', 'pulls_closed'):
         assert col in table
-        assert table[col].dtype == np.float64
         assert not np.isnan(table[col].values).any()
 
     assert len(table) == 14

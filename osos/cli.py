@@ -16,10 +16,10 @@ logger = logging.getLogger(__name__)
 @click.version_option(version=__version__)
 @click.option('--config', '-c', default=None, required=False,
               type=click.Path(exists=True),
-              help='Path to .csv config file with columns for name, '
-              'git_owner, git_repo, pypi_name, and fpath_out. Either input '
-              'this for multiple osos jobs or all of the argument explicitly '
-              'for a single osos job.')
+              help='Path to .csv config file with columns for git_owner, '
+              'git_repo, fpath_out, and (optionally) pypi_name, conda_org, '
+              'and conda_name. Either input this for multiple osos jobs or '
+              'all of the argument explicitly for a single osos job.')
 @click.option('--git_owner', '-go', required=False, default=None, type=str,
               help='Github repository owner, e.g. '
               'https://github.com/{git_owner}/{git_repo}. Case insensitive.')
@@ -39,8 +39,9 @@ logger = logging.getLogger(__name__)
 @click.option('--fpath_out', '-f', required=False, default=None, type=str,
               help='Output file to save the osos output table. If the file '
               'exists, it will be updated with the latest data. This path can '
-              'include the "DATA_DIR" keyword which will get replaced by the '
-              'system location of the /osos/data/ directory.')
+              'include the keywords "DATA_DIR" and "NAME" which will get '
+              'replaced by the system location of the /osos/data/ directory '
+              'and the github repo name, respectively.')
 @click.option('-v', '--verbose', is_flag=True,
               help='Flag to turn on debug logging. Default is not verbose.')
 @click.pass_context

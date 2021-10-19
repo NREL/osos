@@ -38,7 +38,7 @@ def test_views():
 def test_issues_closed():
     """Test the github number of issues closed and lifetime"""
     gh = Github('NREL', 'reV')
-    issues = gh.issues_closed()
+    issues = gh.issues_closed(get_lifetimes=True)
     assert isinstance(issues['issues_closed'], list)
     assert isinstance(issues['issues_closed_count'], int)
     assert isinstance(issues['issues_closed_lifetimes'], list)
@@ -50,7 +50,7 @@ def test_issues_closed():
 def test_issues_open():
     """Test the github number of issues open and lifetime"""
     gh = Github('NREL', 'reV')
-    issues = gh.issues_open()
+    issues = gh.issues_open(get_lifetimes=True)
     assert isinstance(issues['issues_open'], list)
     assert isinstance(issues['issues_open_count'], int)
     assert isinstance(issues['issues_open_lifetimes'], list)
@@ -61,7 +61,7 @@ def test_issues_open():
 def test_pulls_open():
     """Test the github number of PR's open and lifetime"""
     gh = Github('NREL', 'reV')
-    pulls = gh.pulls_open()
+    pulls = gh.pulls_open(get_lifetimes=True)
     assert isinstance(pulls['pulls_open'], list)
     assert isinstance(pulls['pulls_open_count'], int)
     assert isinstance(pulls['pulls_open_lifetimes'], list)
@@ -72,7 +72,7 @@ def test_pulls_open():
 def test_pulls_closed():
     """Test the github number of PR's closed and lifetime"""
     gh = Github('NREL', 'reV')
-    pulls = gh.pulls_closed()
+    pulls = gh.pulls_closed(get_lifetimes=True)
     assert isinstance(pulls['pulls_closed'], list)
     assert isinstance(pulls['pulls_closed_count'], int)
     assert isinstance(pulls['pulls_closed_lifetimes'], list)
