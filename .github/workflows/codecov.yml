@@ -8,6 +8,8 @@ jobs:
   run:
     name: Codecov
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GIT_API_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Setup Python
