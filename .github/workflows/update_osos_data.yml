@@ -33,8 +33,11 @@ jobs:
 
       - name: Checkout and rebase data branch
         run: |
+          git fetch origin main
+          git pull
           git fetch origin nrel_osos_data
           git checkout nrel_osos_data
+          git pull
           git rebase main
 
       - name: make a test file
