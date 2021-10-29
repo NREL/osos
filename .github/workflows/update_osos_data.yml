@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout OSOS
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GIT_API_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -33,18 +31,18 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
 
-      - name: Run the OSOS CLI
-        run: |
-          osos --config ./osos_config.csv -v
+          #      - name: Run the OSOS CLI
+          #        run: |
+          #          osos --config ./osos_config.csv -v
 
-      - name: Push data
-        uses: EndBug/add-and-commit@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_API_TOKEN }}
-        with:
-          add: "./data/*.csv"
-          message: Update OSOS Data
-          author_name: busteradmin
-          author_email: grantbuster@gmail.com
-          committer_name: busteradmin
-          committer_email: grantbuster@gmail.com
+      - name: make a test file
+        run: |
+          touch ./data/test.csv
+
+      - name: Set credentials and push
+        run: |
+          git config --global user.name 'grantbuster'
+          git config --global user.email 'grant.buster@nrel.gov'
+          git add ./data/*.csv
+          git commit -m "update osos data"
+          git push
