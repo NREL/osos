@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout OSOS
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GIT_API_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -42,7 +44,7 @@ jobs:
         with:
           add: "./data/*.csv"
           message: Update OSOS Data
-          author_name: GitHub Actions
-          author_email: actions@github.com
-          committer_name: GitHub Actions
-          committer_email: actions@github.com
+          author_name: busteradmin
+          author_email: grantbuster@gmail.com
+          committer_name: busteradmin
+          committer_email: grantbuster@gmail.com
