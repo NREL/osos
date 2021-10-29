@@ -1,5 +1,30 @@
-******************************
-Open Source Ops and Statistics
-******************************
+*************************************
+Open Source Ops and Statistics (OSOS)
+*************************************
+
+.. image:: https://github.com/NREL/osos/workflows/Documentation/badge.svg
+    :target: https://nrel.github.io/osos/
+
+.. image:: https://github.com/NREL/osos/workflows/pytests/badge.svg
+    :target: https://github.com/NREL/osos/actions?query=workflow%3A%22pytests%22
+
+.. image:: https://github.com/NREL/osos/workflows/Lint%20Code%20Base/badge.svg
+    :target: https://github.com/NREL/osos/actions?query=workflow%3A%22Lint+Code+Base%22
+
+.. image:: https://img.shields.io/pypi/pyversions/NREL-osos.svg
+    :target: https://pypi.org/project/NREL-osos/
+
+.. image:: https://badge.fury.io/py/NREL-osos.svg
+    :target: https://badge.fury.io/py/NREL-osos
+
+.. image:: https://anaconda.org/nrel/nrel-osos/badges/version.svg
+    :target: https://anaconda.org/nrel/nrel-osos
+
+.. image:: https://anaconda.org/nrel/nrel-osos/badges/license.svg
+    :target: https://anaconda.org/nrel/nrel-osos
+
+.. image:: https://codecov.io/gh/NREL/osos/branch/main/graph/badge.svg?token=0J5GVFEGYZ
+   :target: https://codecov.io/gh/NREL/osos
+
 
 This package helps track usage and contribution data for open source software.
