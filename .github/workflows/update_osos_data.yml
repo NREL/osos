@@ -31,15 +31,11 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
 
-      - name: make a test file
+      - name: Run the OSOS CLI
         run: |
-          touch ./data/test.csv
+          osos --config ./osos_config.csv -v
 
-          #      - name: Run the OSOS CLI
-          #        run: |
-          #          osos --config ./osos_config.csv -v
-
-      - name: Set credentials and push
+      - name: Commit and push
         run: |
           git config --global user.name 'grantbuster'
           git config --global user.email 'grant.buster@nrel.gov'
