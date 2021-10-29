@@ -31,13 +31,18 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
 
-          #      - name: Run the OSOS CLI
-          #        run: |
-          #          osos --config ./osos_config.csv -v
+      - name: Checkout and rebase data branch
+        run: |
+          git checkout nrel_osos_data
+          git rebase main
 
       - name: make a test file
         run: |
           touch ./data/test.csv
+
+          #      - name: Run the OSOS CLI
+          #        run: |
+          #          osos --config ./osos_config.csv -v
 
       - name: Set credentials and push
         run: |
@@ -45,4 +50,4 @@ jobs:
           git config --global user.email 'grant.buster@nrel.gov'
           git add ./data/*.csv
           git commit -m "update osos data"
-          git push
+          git push --force
