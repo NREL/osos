@@ -47,7 +47,15 @@ logger = logging.getLogger(__name__)
 @click.pass_context
 def main(ctx, config, git_owner, git_repo, pypi_name, conda_org, conda_name,
          fpath_out, verbose):
-    """OSOS command line interface (CLI)."""
+    """OSOS command line interface (CLI).
+
+    Examples
+    --------
+    Try the following to test out the osos CLI:
+    >>> osos --help
+    >>> osos --git_owner NREL --git_repo osos --fpath_out ./osos.csv -v
+    """
+
     ctx.ensure_object(dict)
 
     msg = ('Need to input either config or (git_owner & git_repo & '
