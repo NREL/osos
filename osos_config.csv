@@ -1,5 +1,5 @@
 ﻿git_owner,git_repo,pypi_name,conda_org,conda_name,fpath_out
-nrel,osos,,,,DATA_DIR/NAME.csv
+nrel,osos,nrel-osos,,,DATA_DIR/NAME.csv
 nrel,rev,nrel-rev,nrel,nrel-rev,DATA_DIR/NAME.csv
 nrel,rex,nrel-rex,nrel,nrel-rex,DATA_DIR/NAME.csv
 nrel,revx,nrel-revx,nrel,nrel-revx,DATA_DIR/NAME.csv
