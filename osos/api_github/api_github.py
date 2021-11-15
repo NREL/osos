@@ -157,8 +157,14 @@ class Github:
         request = self.base_req + f'/traffic/{option}'
         out = self.get_request(request, **kwargs).json()
         out = pd.DataFrame(out[option])
-        out.index = pd.to_datetime(out['timestamp']).dt.date
-        out = out.drop('timestamp', axis=1)
+
+        if 'timestamp' in out:
+            out.index = pd.to_datetime(out['timestamp']).dt.date
+            out = out.drop('timestamp', axis=1)
+        else:
+            out = pd.DataFrame({'count': [0], 'uniques': [0]},
+                               index=[datetime.date.today()])
+
         out.index.name = None
         out = out.rename({'count': option, 'uniques': f'{option}_unique'},
                          axis=1)
