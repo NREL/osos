@@ -68,3 +68,5 @@ one of our open source projects:
 
 .. image:: https://github.com/NREL/osos/blob/main/plots/rev_pypi_180_cumulative.png
   :width: 400
+
+*note that the PyPI 180 day cumulative download metric is for the last 180 days from every timestamp, not for the last 180 from today. 
