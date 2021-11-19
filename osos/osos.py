@@ -130,7 +130,7 @@ class Osos:
         table['subscribers'] = self._gh.subscribers()
         table['contributors'] = self._gh.contributors()
 
-        table = table.join(self._gh.commits(self._index))
+        table = table.join(self._gh.commits(date_iter=self._index))
         table['total_commits'] = self._gh.commit_count()
 
         if self._pypi_name is not None:

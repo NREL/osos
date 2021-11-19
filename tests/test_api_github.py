@@ -124,14 +124,10 @@ def test_commit_count():
 
 def test_commit_record():
     """Test the github timeseries commit record"""
-    d0 = datetime.date.today()
-    date_range = [d0]
-    for nd in range(1, 14):
-        date_range.append(d0 - datetime.timedelta(days=nd))
-
+    d0 = datetime.date.today() - datetime.timedelta(days=14)
     gh = Github('NREL', 'reV')
-    commits = gh.commits(date_range)
-    assert len(commits) == len(date_range)
+    commits = gh.commits(date_start=d0)
+    assert len(commits) == 15
     assert 'commits' in commits
     assert commits['commits'].dtype == np.int64
     assert all(commits['commits'] >= 0)

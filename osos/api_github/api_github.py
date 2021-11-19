@@ -50,8 +50,16 @@ class Github:
         else:
             logger.debug('Using github token from kwarg input to osos.')
 
-    def _issues_pulls(self, option='issues', state='open', get_lifetimes=False,
-                      **kwargs):
+    def __str__(self):
+        st = (f'Github API interface for https://github.com/'
+              f'{self._owner}/{self._repo}/')
+        return st
+
+    def __repr__(self):
+        return str(self)
+
+    def get_issues_pulls(self, option='issues', state='open',
+                         get_lifetimes=False, **kwargs):
         """Get open/closed issues/pulls for the repo (all have the same
         general parsing format)
 
@@ -321,13 +329,18 @@ class Github:
         out = self._total_count(request, **kwargs)
         return out
 
-    def commits(self, date_iter, search_all=False, **kwargs):
+    def commits(self, date_start=None, date_iter=None, search_all=False,
+                **kwargs):
         """Get the number of commits by day in a given set of dates.
 
         Parameters
         ----------
-        date_iter : list | tuple | pd.DatetimeIndex
-            Iterable of dates
+        date_start : datetime.date | None
+            Option to search for commits from this date to today. Either input
+            this or the date_iter.
+        date_iter : list | tuple | pd.DatetimeIndex | None
+            Iterable of dates to search for. Either input this or the
+            date_start.
         search_all : bool
             Flag to search all commits or to terminate early (default) when the
             commit date is before all dates in the date_iter
@@ -340,6 +353,14 @@ class Github:
             Timeseries of commit data based on date_iter as the index. Includes
             columns for "commits".
         """
+
+        if date_start is not None:
+            date_iter = pd.date_range(date_start, datetime.date.today())
+
+        if date_iter is None:
+            msg = 'Must either input date_start or date_iter!'
+            logger.error(msg)
+            raise RuntimeError(msg)
 
         logger.debug('Getting commit history for '
                      f'"{self._owner}/{self._repo}"')
@@ -417,13 +438,14 @@ class Github:
 
         Returns
         -------
-        out : dict
-            Namespace with keys: "issues_closed" and "issues_closed_*"
-            for count, lifteimtes, and mean/median lifetime in days
+        out : int | dict
+            Number of closed issues, or if get_lifetimes is True, this returns
+            a dict with additional metrics.
         """
         logger.debug(f'Getting closed issues for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='issues', state='closed',
-                                 get_lifetimes=get_lifetimes, **kwargs)
+        out = self.get_issues_pulls(option='issues', state='closed',
+                                    get_lifetimes=get_lifetimes,
+                                    **kwargs)
         return out
 
     def issues_open(self, get_lifetimes=False, **kwargs):
@@ -442,13 +464,14 @@ class Github:
 
         Returns
         -------
-        out : dict
-            Namespace with keys: "issues_open" and "issues_open_*"
-            for count, lifteimtes, and mean/median lifetime in days
+        out : int | dict
+            Number of open issues, or if get_lifetimes is True, this returns
+            a dict with additional metrics.
         """
         logger.debug(f'Getting open issues for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='issues', state='open',
-                                 get_lifetimes=get_lifetimes, **kwargs)
+        out = self.get_issues_pulls(option='issues', state='open',
+                                    get_lifetimes=get_lifetimes,
+                                    **kwargs)
         return out
 
     def pulls_closed(self, get_lifetimes=False, **kwargs):
@@ -467,13 +490,14 @@ class Github:
 
         Returns
         -------
-        out : dict
-            Namespace with keys: "pulls_closed" and "pulls_closed_*"
-            for count, lifteimtes, and mean/median lifetime in days
+        out : int | dict
+            Number of closed pull requests, or if get_lifetimes is True, this
+            returns a dict with additional metrics.
         """
         logger.debug(f'Getting closed pulls for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='pulls', state='closed',
-                                 get_lifetimes=get_lifetimes, **kwargs)
+        out = self.get_issues_pulls(option='pulls', state='closed',
+                                    get_lifetimes=get_lifetimes,
+                                    **kwargs)
         return out
 
     def pulls_open(self, get_lifetimes=False, **kwargs):
@@ -492,13 +516,14 @@ class Github:
 
         Returns
         -------
-        out : dict
-            Namespace with keys: "pulls_open" and "pulls_open_*"
-            for count, lifteimtes, and mean/median lifetime in days
+        out : int | dict
+            Number of open pull requests, or if get_lifetimes is True, this
+            returns a dict with additional metrics.
         """
         logger.debug(f'Getting open pulls for "{self._owner}/{self._repo}"')
-        out = self._issues_pulls(option='pulls', state='open',
-                                 get_lifetimes=get_lifetimes, **kwargs)
+        out = self.get_issues_pulls(option='pulls', state='open',
+                                    get_lifetimes=get_lifetimes,
+                                    **kwargs)
         return out
 
     def stargazers(self, **kwargs):

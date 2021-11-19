@@ -4,6 +4,9 @@ Open Source Ops and Statistics
 """
 import os
 from osos.osos import Osos
+from osos.api_pypi import Pypi
+from osos.api_conda import Conda
+from osos.api_github import Github
 from osos.version import __version__
 
 
