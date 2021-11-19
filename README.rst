@@ -39,6 +39,32 @@ for details on how to run OSOS from the command line.
 Installing OSOS
 ===============
 
-OSOS can be installed via pip: ``pip install nrel-osos``. After installing, try
-calling the command line help page with ``osos --help`` to make sure the
-installation worked.
+OSOS can be installed via pip: ``pip install nrel-osos`` or by cloning the repo 
+and doing a developer install: ``pip install -e .`` from within the repo directory.
+
+Getting Started
+===============
+
+After installing, try calling the command line help page with ``osos --help`` to 
+see the run options. There are currently two CLI commands: one for running the 
+osos utility (``osos run --help``) and one for plotting the osos data files 
+(``osos plot --help``).
+
+You can also run osos from python directly. Try 
+`launching binder <https://mybinder.org/v2/gh/NREL/osos/HEAD>`_ 
+and navigating to `the osos example notebook <https://github.com/NREL/osos/blob/main/examples/running_osos.ipynb>`_. 
+You will need your own github api token to run the notebook.
+
+How To Use OSOS
+===============
+
+OSOS is a general utility for downloading usage statistics from github, pypi, and conda. 
+Feel free to fork the repo to track your own projects. We have a scheduled github action 
+workflow set up to automatically pull usage statistics for our projects every Monday morning. 
+The data is saved in the `osos data directory <https://github.com/NREL/osos/tree/main/data>`_ 
+and plots are saved to the `osos plots directory <https://github.com/NREL/osos/tree/main/plots>`_. 
+For example, here is the 180-day cumulative pypi downloads for `reV <https://github.com/NREL/rev>`_, 
+one of our open source projects:
+
+.. image:: https://github.com/NREL/osos/blob/main/plots/rev_pypi_180_cumulative.png
+  :width: 400
