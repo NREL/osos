@@ -33,7 +33,8 @@ jobs:
 
       - name: Run the OSOS CLI
         run: |
-          osos --config ./osos_config.csv -v
+          osos run --config ./osos_config.csv -v
+          osos plot -v
 
       - name: Commit and push
         run: |

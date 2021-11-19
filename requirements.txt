@@ -4,3 +4,4 @@ numpy
 pandas
 pypistats
 requests
+seaborn
