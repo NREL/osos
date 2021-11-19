@@ -24,7 +24,7 @@ Open Source Ops and Statistics (OSOS)
    :target: https://codecov.io/gh/NREL/osos
 
 .. image:: https://mybinder.org/badge_logo.svg
-    :target: https://mybinder.org/v2/gh/nrel/reV/HEAD
+    :target: https://mybinder.org/v2/gh/nrel/osos/HEAD
 
 This package helps track usage and contribution data for open source software.
 OSOS can be used to retrieve timeseries data on the usage and activity of open
