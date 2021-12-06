@@ -87,5 +87,6 @@ class Pypi:
         out = pd.DataFrame(index=sorted(dates)).join(out)
         out['pypi_daily'] = out['pypi_daily'].fillna(0)
         out['pypi_180_cumulative'] = out['pypi_180_cumulative'].ffill().bfill()
+        out = out.fillna(0)
         out = out.astype(np.int64)
         return out
