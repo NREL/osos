@@ -3,9 +3,9 @@
 name: Update OSOS Data
 on:
 
-  # Run every monday at 8am Mountain Time (14 UTC)
+  # Run every Sunday night at 11pm Mountain Time (6am Monday UTC)
   schedule:
-    - cron: "0 14 * * 1"
+    - cron: "0 6 * * 1"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
