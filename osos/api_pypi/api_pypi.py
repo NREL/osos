@@ -36,8 +36,15 @@ class Pypi:
             date, not 180 days from the date in the output row index.
         """
 
-        out = pypistats.overall(name, total=True, format="pandas")
-        out = out.iloc[:-1]  # drop totals row, unnecessary
+        try:
+            out = pypistats.overall(name, total=True, format="pandas")
+        except Exception as e:
+            msg = ('Could not get pypi stats for package "{}", '
+                   'received the following exception: {}'.format(name, e))
+            logger.exception(msg)
+            raise RuntimeError(msg) from e
+        else:
+            out = out.iloc[:-1]  # drop totals row, unnecessary
 
         if not include_mirrors:
             out = out[(out['category'] == 'without_mirrors')]
