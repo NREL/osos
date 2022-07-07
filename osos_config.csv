@@ -5,6 +5,7 @@ nrel,rex,nrel-rex,nrel,nrel-rex,DATA_DIR/NAME.csv
 nrel,revx,nrel-revx,nrel,nrel-revx,DATA_DIR/NAME.csv
 nrel,nrwal,nrel-nrwal,nrel,nrel-nrwal,DATA_DIR/NAME.csv
 nrel,phygnn,nrel-phygnn,nrel,nrel-phygnn,DATA_DIR/NAME.csv
+nrel,sup3r,nrel-sup3r,,,DATA_DIR/NAME.csv
 nrel,cloud_fs,nrel-cloud_fs,nrel,nrel-cloud_fs,DATA_DIR/NAME.csv
 nrel,sam,,,,DATA_DIR/NAME.csv
 nrel,pysam,nrel-pysam,nrel,nrel-pysam,DATA_DIR/NAME.csv
