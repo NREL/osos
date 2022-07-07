@@ -1,0 +1,36 @@
+﻿osos
+====
+
+.. automodule:: osos
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   osos.api_conda
+   osos.api_github
+   osos.api_pypi
+   osos.cli
+   osos.osos
+   osos.utilities
+   osos.version
+

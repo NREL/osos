@@ -1,0 +1,31 @@
+osos.api\_github.api\_github
+============================
+
+.. automodule:: osos.api_github.api_github
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+   
+      Github
+   
+   
+
+   
+   
+   
+
+
+

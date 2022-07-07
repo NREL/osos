@@ -1,0 +1,27 @@
+osos.osos.Osos
+==============
+
+.. currentmodule:: osos.osos
+
+.. autoclass:: Osos
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Osos.clean_table
+      ~Osos.make_table
+      ~Osos.run_config
+      ~Osos.update
+   
+   
+
+   
+   
+   

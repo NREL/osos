@@ -1,0 +1,30 @@
+osos.api\_github
+================
+
+.. automodule:: osos.api_github
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   osos.api_github.api_github
+

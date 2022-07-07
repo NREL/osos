@@ -1,0 +1,31 @@
+osos.utilities.plotting.Plotting
+================================
+
+.. currentmodule:: osos.utilities.plotting
+
+.. autoclass:: Plotting
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Plotting.auto_plot
+      ~Plotting.plot_metric
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Plotting.ALIASES
+   
+   

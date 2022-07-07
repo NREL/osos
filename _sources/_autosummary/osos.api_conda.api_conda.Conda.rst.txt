@@ -1,0 +1,24 @@
+osos.api\_conda.api\_conda.Conda
+================================
+
+.. currentmodule:: osos.api_conda.api_conda
+
+.. autoclass:: Conda
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Conda.get_data
+   
+   
+
+   
+   
+   
