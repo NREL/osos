@@ -15,7 +15,15 @@ def test_cli():
     with tempfile.TemporaryDirectory() as td:
         fp = str(td).replace('\\', '/') + '/test.csv'
         runner = CliRunner()
-        out = runner.invoke(main, f"-go NREL -gr reV -pn nrel-rev -f {fp} -v")
+        args = f"run -go NREL -gr reV -pn nrel-rev -f {fp} -v"
+        out = runner.invoke(main, args)
+
+        if out.exit_code != 0:
+            import traceback
+            msg = ('Failed with error {}'
+                   .format(traceback.print_exception(*out.exc_info)))
+            raise RuntimeError(msg)
+
         assert out.exit_code == 0
         assert os.path.exists(fp)
 
@@ -32,7 +40,14 @@ def test_cli_config():
         source.to_csv(config)
 
         runner = CliRunner()
-        out = runner.invoke(main, f"-c {config} -v")
+        out = runner.invoke(main, f"run -c {config} -v")
+
+        if out.exit_code != 0:
+            import traceback
+            msg = ('Failed with error {}'
+                   .format(traceback.print_exception(*out.exc_info)))
+            raise RuntimeError(msg)
+
         assert out.exit_code == 0
         assert os.path.exists(fpath_out1)
         assert os.path.exists(fpath_out2)
