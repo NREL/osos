@@ -82,11 +82,11 @@ def run(ctx, config, git_owner, git_repo, pypi_name, conda_org, conda_name,
 
 
 @main.command()
-@click.option('--metric', '-m', required=True, default='pypi_180_cumulative',
+@click.option('--metric', '-m', required=True, default='pypi_daily',
               type=str, show_default=True,
               help='Metric from the osos csv files to plot.')
 @click.option('--ylabel', '-y', required=True,
-              default='{name} 180 Day Cumulative PyPI Downloads',
+              default='{name} Daily PyPI Downloads',
               type=str, show_default=True,
               help='Plot y-axis label, can include "{name}" which will get '
               'formatted with the repo name inferred from the osos data csv '
@@ -98,10 +98,12 @@ def run(ctx, config, git_owner, git_repo, pypi_name, conda_org, conda_name,
 @click.option('--save_dir', '-sa', required=True, default=PLOT_DIR,
               type=str, show_default=True,
               help='Directory to save plots.')
+@click.option('-c', '--cumulative', is_flag=True,
+              help='Flag to plot cumulative sum of metric.')
 @click.option('-v', '--verbose', is_flag=True,
               help='Flag to turn on debug logging. Default is not verbose.')
 @click.pass_context
-def plot(ctx, metric, ylabel, source_dir, save_dir, verbose):
+def plot(ctx, metric, ylabel, source_dir, save_dir, cumulative, verbose):
     """Generate plots from all osos csv's in the source_dir."""
     ctx.ensure_object(dict)
 
@@ -110,8 +112,8 @@ def plot(ctx, metric, ylabel, source_dir, save_dir, verbose):
     else:
         init_logger('osos', log_level='INFO')
 
-    Plotting.auto_plot(metric, ylabel=ylabel, source_dir=source_dir,
-                       save_dir=save_dir)
+    Plotting.auto_plot(metric, cumulative=cumulative, ylabel=ylabel,
+                       source_dir=source_dir, save_dir=save_dir)
 
 
 if __name__ == '__main__':

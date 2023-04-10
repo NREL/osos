@@ -81,8 +81,8 @@ def test_osos_new_data():
         cols = [c for c in new.columns if c != 'updated_on']
         assert_frame_equal(new[cols], disk[cols])
 
-        assert all(d in new.index.values for d in fake_dates)
-        assert all(d in disk.index.values for d in fake_dates)
+        assert all(d in new.index.values for d in fake_dates.date)
+        assert all(d in disk.index.values for d in fake_dates.date)
         assert all(d in new.index.values for d in truth.index.values)
         assert all(d in disk.index.values for d in truth.index.values)
 

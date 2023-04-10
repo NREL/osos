@@ -26,8 +26,8 @@ class Plotting:
                }
 
     @staticmethod
-    def plot_metric(df, metric, ylabel=None, figsize=(10, 5), save_path=None,
-                    show=True, close=True):
+    def plot_metric(df, metric, cumulative=False, ylabel=None, figsize=(10, 5),
+                    save_path=None, show=True, close=True):
         """Plot a osos metric from an osos dataframe.
 
         Parameters
@@ -36,6 +36,8 @@ class Plotting:
             OSOS data timeseries dataframe, likely from the repository DATA_DIR
         metric : str
             Metric to plot in the dataframe. Must be one of the column titles.
+        cumulative : bool
+            Flag to plot the cumulative sum of the metric.
         ylabel : str
             Optional y axis label. If None the metric will be used.
         save_path : str | None
@@ -57,7 +59,13 @@ class Plotting:
             raise KeyError(msg)
 
         fig, ax = plt.subplots(1, 1, figsize=figsize)
-        df[metric].astype(float).plot(ax=ax)
+        data = df[metric].astype(float)
+
+        if cumulative:
+            data = data.cumsum()
+
+        data.plot(ax=ax)
+
         _ = plt.xticks(rotation=45)
 
         if ylabel is not None:
@@ -76,8 +84,8 @@ class Plotting:
         return ax
 
     @classmethod
-    def auto_plot(cls, metric, ylabel=None, source_dir=DATA_DIR,
-                  save_dir=PLOT_DIR):
+    def auto_plot(cls, metric, cumulative=False, ylabel=None,
+                  source_dir=DATA_DIR, save_dir=PLOT_DIR):
         """Auto plot a single metric for all osos datasets in the osos
         source_dir path
 
@@ -85,6 +93,8 @@ class Plotting:
         ----------
         metric : str
             Metric to plot in the dataframe. Must be one of the column titles.
+        cumulative : bool
+            Flag to plot the cumulative sum of the metric.
         ylabel : str
             y axis label for all plots. Can include format string {name} that
             will be replaced with the repo name from the data filename. If
@@ -106,6 +116,9 @@ class Plotting:
             name = name.lower()
             save_path = os.path.join(save_dir, f'{name}_{metric}.png')
 
+            if cumulative:
+                save_path = save_path.replace('.png', '_cumulative.png')
+
             if name in cls.ALIASES:
                 name = cls.ALIASES[name]
             else:
@@ -118,7 +131,8 @@ class Plotting:
             df = pd.read_csv(fp, index_col=0, parse_dates=True)
 
             try:
-                cls.plot_metric(df, metric, save_path=save_path,
-                                ylabel=i_ylabel, show=False, close=True)
+                cls.plot_metric(df, metric, cumulative=cumulative,
+                                save_path=save_path, ylabel=i_ylabel,
+                                show=False, close=True)
             except KeyError:
                 logger.info(f'Could not plot metric "{metric}" for "{name}".')
