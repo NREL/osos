@@ -34,7 +34,7 @@ jobs:
       - name: Run the OSOS CLI
         run: |
           osos run --config ./osos_config.csv -v
-          osos plot -v
+          osos plot -m pypi_daily -y '{name} Daily PyPI Downloads (cumulative)' -c -v
 
       - name: Commit and push
         run: |
