@@ -175,7 +175,7 @@ class Osos:
             logger.info(f'Updating cached file: {fpath_out}')
             original = pd.read_csv(fpath_out, index_col=0)
             original.index = pd.to_datetime(original.index.values).date
-            table = table.append(original)
+            table = pd.concatenate([table, original])
             table = table[~table.index.duplicated(keep='first')]
             table = table.sort_index()
 
