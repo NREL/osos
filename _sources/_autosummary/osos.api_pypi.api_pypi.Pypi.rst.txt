@@ -1,0 +1,25 @@
+osos.api\_pypi.api\_pypi.Pypi
+=============================
+
+.. currentmodule:: osos.api_pypi.api_pypi
+
+.. autoclass:: Pypi
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Pypi.get_daily_data
+      ~Pypi.get_data
+   
+   
+
+   
+   
+   

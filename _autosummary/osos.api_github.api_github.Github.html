@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>osos.api_github.api_github.Github &mdash; osos 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="osos.api_pypi" href="osos.api_pypi.html" />
+    <link rel="prev" title="osos.api_github.api_github" href="osos.api_github.api_github.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            osos
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home page</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="osos.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="osos.api_conda.html">osos.api_conda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osos.api_conda.api_conda.html">osos.api_conda.api_conda</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osos.api_conda.api_conda.Conda.html">osos.api_conda.api_conda.Conda</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="osos.api_github.html">osos.api_github</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="osos.api_github.api_github.html">osos.api_github.api_github</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">osos.api_github.api_github.Github</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="osos.api_pypi.html">osos.api_pypi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osos.api_pypi.api_pypi.html">osos.api_pypi.api_pypi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osos.api_pypi.api_pypi.Pypi.html">osos.api_pypi.api_pypi.Pypi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="osos.cli.html">osos.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osos.osos.html">osos.osos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osos.osos.Osos.html">osos.osos.Osos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osos.osos.Osos.html#osos.osos.Osos"><code class="docutils literal notranslate"><span class="pre">Osos</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="osos.utilities.html">osos.utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osos.utilities.plotting.html">osos.utilities.plotting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osos.utilities.plotting.Plotting.html">osos.utilities.plotting.Plotting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="osos.version.html">osos.version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../_cli/cli.html">CLI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_cli/osos.html">osos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../_cli/osos.html#osos-plot">plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_cli/osos.html#osos-run">run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">osos</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="osos.html">osos</a></li>
+          <li class="breadcrumb-item"><a href="osos.api_github.html">osos.api_github</a></li>
+          <li class="breadcrumb-item"><a href="osos.api_github.api_github.html">osos.api_github.api_github</a></li>
+      <li class="breadcrumb-item active">osos.api_github.api_github.Github</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nrel/osos/blob/main/docs/source/_autosummary/osos.api_github.api_github.Github.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="osos-api-github-api-github-github">
+<h1>osos.api_github.api_github.Github<a class="headerlink" href="#osos-api-github-api-github-github" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Github</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class to call github api and return osos-formatted usage data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>owner</strong> (<em>str</em>) – Repository owner, e.g. <a class="reference external" href="https://github.com">https://github.com</a>/{owner}/{repo}</p></li>
+<li><p><strong>repo</strong> (<em>str</em>) – Repository name, e.g. <a class="reference external" href="https://github.com">https://github.com</a>/{owner}/{repo}</p></li>
+<li><p><strong>token</strong> (<em>str | None</em>) – Github api authorization token. If none this gets retrieved from
+the GITHUB_TOKEN environment variable</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.clones" title="osos.api_github.api_github.Github.clones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clones</span></code></a>(**kwargs)</p></td>
+<td><p>Get the daily github repo clone data for the last two weeks.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.commit_count" title="osos.api_github.api_github.Github.commit_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">commit_count</span></code></a>(**kwargs)</p></td>
+<td><p>Get the number of repo commits</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.commits" title="osos.api_github.api_github.Github.commits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">commits</span></code></a>([date_start, date_iter, search_all])</p></td>
+<td><p>Get the number of commits by day in a given set of dates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.contributors" title="osos.api_github.api_github.Github.contributors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contributors</span></code></a>(**kwargs)</p></td>
+<td><p>Get the number of repo contributors</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.forks" title="osos.api_github.api_github.Github.forks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forks</span></code></a>(**kwargs)</p></td>
+<td><p>Get the number of repo forks.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.get_generator" title="osos.api_github.api_github.Github.get_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_generator</span></code></a>(request, **kwargs)</p></td>
+<td><p>Call the github API using the requests.get() method and merge all the paginated results into a single output</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.get_issues_pulls" title="osos.api_github.api_github.Github.get_issues_pulls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_issues_pulls</span></code></a>([option, state, get_lifetimes])</p></td>
+<td><p>Get open/closed issues/pulls for the repo (all have the same general parsing format)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.get_request" title="osos.api_github.api_github.Github.get_request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_request</span></code></a>(request, **kwargs)</p></td>
+<td><p>Get the raw request output object</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.issues_closed" title="osos.api_github.api_github.Github.issues_closed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">issues_closed</span></code></a>([get_lifetimes])</p></td>
+<td><p>Get data on the closed repo issues.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.issues_open" title="osos.api_github.api_github.Github.issues_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">issues_open</span></code></a>([get_lifetimes])</p></td>
+<td><p>Get data on the open repo issues.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.pulls_closed" title="osos.api_github.api_github.Github.pulls_closed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pulls_closed</span></code></a>([get_lifetimes])</p></td>
+<td><p>Get data on the closed repo pull requests.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.pulls_open" title="osos.api_github.api_github.Github.pulls_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pulls_open</span></code></a>([get_lifetimes])</p></td>
+<td><p>Get data on the open repo pull requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.stargazers" title="osos.api_github.api_github.Github.stargazers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stargazers</span></code></a>(**kwargs)</p></td>
+<td><p>Get the number of repo stargazers</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.subscribers" title="osos.api_github.api_github.Github.subscribers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subscribers</span></code></a>(**kwargs)</p></td>
+<td><p>Get the number of repo subscribers</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#osos.api_github.api_github.Github.views" title="osos.api_github.api_github.Github.views"><code class="xref py py-obj docutils literal notranslate"><span class="pre">views</span></code></a>(**kwargs)</p></td>
+<td><p>Get the daily github repo views data for the last two weeks.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">BASE_REQ</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">TIME_FORMAT</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.get_issues_pulls">
+<span class="sig-name descname"><span class="pre">get_issues_pulls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'issues'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'open'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_lifetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.get_issues_pulls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.get_issues_pulls" title="Link to this definition"></a></dt>
+<dd><p>Get open/closed issues/pulls for the repo (all have the same
+general parsing format)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option</strong> (<em>str</em>) – “issues” or “pulls”</p></li>
+<li><p><strong>state</strong> (<em>str</em>) – “open” or “closed”</p></li>
+<li><p><strong>get_lifetimes</strong> (<em>bool</em>) – Flag to get the lifetime statistics of issues/pulls. Default is
+false to reduce number of API queries. Turning this on requires
+that we get the full data for every issue/pull. It is recommended
+that users retrieve lifetime statistics manually when desired and
+not as part of an automated OSOS workflow.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int | dict</em>) – Integer count of the number of issues/pulls if get_lifetimes=False,
+or a dict Namespace with keys: “{option}_{state}” and
+“{option}_{state}_*” for count, lifteimtes, and mean/median
+lifetime in days</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.get_request">
+<span class="sig-name descname"><span class="pre">get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.get_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.get_request" title="Link to this definition"></a></dt>
+<dd><p>Get the raw request output object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>str</em>) – Request URL, example: “<a class="reference external" href="https://api.github.com/repos/NREL/reV/pulls">https://api.github.com/repos/NREL/reV/pulls</a>”</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>requests.models.Response</em>) – requests.get() output object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.get_generator">
+<span class="sig-name descname"><span class="pre">get_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.get_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.get_generator" title="Link to this definition"></a></dt>
+<dd><p>Call the github API using the requests.get() method and merge all
+the paginated results into a single output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>str</em>) – Request URL, example: “<a class="reference external" href="https://api.github.com/repos/NREL/reV/pulls">https://api.github.com/repos/NREL/reV/pulls</a>”</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>generator</em>) – generator of list items in the request output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.contributors">
+<span class="sig-name descname"><span class="pre">contributors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.contributors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.contributors" title="Link to this definition"></a></dt>
+<dd><p>Get the number of repo contributors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int</em>) – Number of contributors for the repo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.commit_count">
+<span class="sig-name descname"><span class="pre">commit_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.commit_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.commit_count" title="Link to this definition"></a></dt>
+<dd><p>Get the number of repo commits</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int</em>) – Total number of commits to the repo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.commits">
+<span class="sig-name descname"><span class="pre">commits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.commits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.commits" title="Link to this definition"></a></dt>
+<dd><p>Get the number of commits by day in a given set of dates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date_start</strong> (<em>datetime.date | None</em>) – Option to search for commits from this date to today. Either input
+this or the date_iter.</p></li>
+<li><p><strong>date_iter</strong> (<em>list | tuple | pd.DatetimeIndex | None</em>) – Iterable of dates to search for. Either input this or the
+date_start.</p></li>
+<li><p><strong>search_all</strong> (<em>bool</em>) – Flag to search all commits or to terminate early (default) when the
+commit date is before all dates in the date_iter</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>pd.DataFrame</em>) – Timeseries of commit data based on date_iter as the index. Includes
+columns for “commits”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.clones">
+<span class="sig-name descname"><span class="pre">clones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.clones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.clones" title="Link to this definition"></a></dt>
+<dd><p>Get the daily github repo clone data for the last two weeks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>pd.DataFrame</em>) – Timeseries of daily git clone data. Includes columns for “clones”
+and “clones_unique”. Index is a pandas datetime index with just the
+datetime.date part.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.forks">
+<span class="sig-name descname"><span class="pre">forks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.forks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.forks" title="Link to this definition"></a></dt>
+<dd><p>Get the number of repo forks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int</em>) – The number of forks.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.issues_closed">
+<span class="sig-name descname"><span class="pre">issues_closed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_lifetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.issues_closed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.issues_closed" title="Link to this definition"></a></dt>
+<dd><p>Get data on the closed repo issues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_lifetimes</strong> (<em>bool</em>) – Flag to get the lifetime statistics of issues/pulls. Default is
+false to reduce number of API queries. Turning this on requires
+that we get the full data for every issue/pull. It is recommended
+that users retrieve lifetime statistics manually when desired and
+not as part of an automated OSOS workflow.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int | dict</em>) – Number of closed issues, or if get_lifetimes is True, this returns
+a dict with additional metrics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.issues_open">
+<span class="sig-name descname"><span class="pre">issues_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_lifetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.issues_open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.issues_open" title="Link to this definition"></a></dt>
+<dd><p>Get data on the open repo issues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_lifetimes</strong> (<em>bool</em>) – Flag to get the lifetime statistics of issues/pulls. Default is
+false to reduce number of API queries. Turning this on requires
+that we get the full data for every issue/pull. It is recommended
+that users retrieve lifetime statistics manually when desired and
+not as part of an automated OSOS workflow.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int | dict</em>) – Number of open issues, or if get_lifetimes is True, this returns
+a dict with additional metrics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.pulls_closed">
+<span class="sig-name descname"><span class="pre">pulls_closed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_lifetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.pulls_closed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.pulls_closed" title="Link to this definition"></a></dt>
+<dd><p>Get data on the closed repo pull requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_lifetimes</strong> (<em>bool</em>) – Flag to get the lifetime statistics of issues/pulls. Default is
+false to reduce number of API queries. Turning this on requires
+that we get the full data for every issue/pull. It is recommended
+that users retrieve lifetime statistics manually when desired and
+not as part of an automated OSOS workflow.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int | dict</em>) – Number of closed pull requests, or if get_lifetimes is True, this
+returns a dict with additional metrics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.pulls_open">
+<span class="sig-name descname"><span class="pre">pulls_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_lifetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.pulls_open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.pulls_open" title="Link to this definition"></a></dt>
+<dd><p>Get data on the open repo pull requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_lifetimes</strong> (<em>bool</em>) – Flag to get the lifetime statistics of issues/pulls. Default is
+false to reduce number of API queries. Turning this on requires
+that we get the full data for every issue/pull. It is recommended
+that users retrieve lifetime statistics manually when desired and
+not as part of an automated OSOS workflow.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int | dict</em>) – Number of open pull requests, or if get_lifetimes is True, this
+returns a dict with additional metrics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.stargazers">
+<span class="sig-name descname"><span class="pre">stargazers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.stargazers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.stargazers" title="Link to this definition"></a></dt>
+<dd><p>Get the number of repo stargazers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int</em>) – Number of stargazers for the repo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.subscribers">
+<span class="sig-name descname"><span class="pre">subscribers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.subscribers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.subscribers" title="Link to this definition"></a></dt>
+<dd><p>Get the number of repo subscribers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>int</em>) – Number of subscribers for the repo.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="osos.api_github.api_github.Github.views">
+<span class="sig-name descname"><span class="pre">views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/osos/api_github/api_github.html#Github.views"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#osos.api_github.api_github.Github.views" title="Link to this definition"></a></dt>
+<dd><p>Get the daily github repo views data for the last two weeks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – Optional kwargs to get passed to requests.get()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> (<em>pd.DataFrame</em>) – Timeseries of daily git views data. Includes columns for “views”
+and “views_unique”. Index is a pandas datetime index with just the
+datetime.date part.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="osos.api_github.api_github.html" class="btn btn-neutral float-left" title="osos.api_github.api_github" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="osos.api_pypi.html" class="btn btn-neutral float-right" title="osos.api_pypi" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Alliance for Sustainable Energy, LLC.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

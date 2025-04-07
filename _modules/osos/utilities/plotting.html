@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>osos.utilities.plotting &mdash; osos 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            osos
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/osos.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.api_conda.html">osos.api_conda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.api_conda.api_conda.html">osos.api_conda.api_conda</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.api_conda.api_conda.Conda.html">osos.api_conda.api_conda.Conda</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.api_github.html">osos.api_github</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.api_github.api_github.html">osos.api_github.api_github</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.api_github.api_github.Github.html">osos.api_github.api_github.Github</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.api_pypi.html">osos.api_pypi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.api_pypi.api_pypi.html">osos.api_pypi.api_pypi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.api_pypi.api_pypi.Pypi.html">osos.api_pypi.api_pypi.Pypi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.cli.html">osos.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.osos.html">osos.osos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.osos.Osos.html">osos.osos.Osos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.osos.Osos.html#osos.osos.Osos"><code class="docutils literal notranslate"><span class="pre">Osos</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.utilities.html">osos.utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.utilities.plotting.html">osos.utilities.plotting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.utilities.plotting.Plotting.html">osos.utilities.plotting.Plotting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.version.html">osos.version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_cli/cli.html">CLI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_cli/osos.html">osos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_cli/osos.html#osos-plot">plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_cli/osos.html#osos-run">run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">osos</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">osos.utilities.plotting</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for osos.utilities.plotting</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plotting utilities</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">osos</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">PLOT_DIR</span>
+
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Plotting">
+<a class="viewcode-back" href="../../../_autosummary/osos.utilities.plotting.Plotting.html#osos.utilities.plotting.Plotting">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Plotting</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OSOS plotting utilities for auto-plotting of usage data.&quot;&quot;&quot;</span>
+
+    <span class="c1"># common aliases and capitalization conventions for plot titles</span>
+    <span class="c1"># format is all lower case keys mapped to desired alias in the value</span>
+    <span class="n">ALIASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rev&#39;</span><span class="p">:</span> <span class="s1">&#39;reV&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;revx&#39;</span><span class="p">:</span> <span class="s1">&#39;reVX&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;pysam&#39;</span><span class="p">:</span> <span class="s1">&#39;PySAM&#39;</span><span class="p">,</span>
+               <span class="p">}</span>
+
+<div class="viewcode-block" id="Plotting.plot_metric">
+<a class="viewcode-back" href="../../../_autosummary/osos.utilities.plotting.Plotting.html#osos.utilities.plotting.Plotting.plot_metric">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_metric</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                    <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot a osos metric from an osos dataframe.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        df : pd.DataFrame</span>
+<span class="sd">            OSOS data timeseries dataframe, likely from the repository DATA_DIR</span>
+<span class="sd">        metric : str</span>
+<span class="sd">            Metric to plot in the dataframe. Must be one of the column titles.</span>
+<span class="sd">        cumulative : bool</span>
+<span class="sd">            Flag to plot the cumulative sum of the metric.</span>
+<span class="sd">        ylabel : str</span>
+<span class="sd">            Optional y axis label. If None the metric will be used.</span>
+<span class="sd">        save_path : str | None</span>
+<span class="sd">            Filepath to save figure to (optional).</span>
+<span class="sd">        show : bool</span>
+<span class="sd">            Flag to show / display figure (should be false for automated calls)</span>
+<span class="sd">        close : bool</span>
+<span class="sd">            Flag to close figure after saving/showing</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ax : matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">            AxesSubplot object generated by matplotlib</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Could not find &quot;</span><span class="si">{}</span><span class="s1">&quot;, available keys: </span><span class="si">{}</span><span class="s1">&#39;</span>
+                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cumulative</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+        <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ylabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Saved: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">save_path</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">close</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="Plotting.auto_plot">
+<a class="viewcode-back" href="../../../_autosummary/osos.utilities.plotting.Plotting.html#osos.utilities.plotting.Plotting.auto_plot">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">auto_plot</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">source_dir</span><span class="o">=</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="n">PLOT_DIR</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Auto plot a single metric for all osos datasets in the osos</span>
+<span class="sd">        source_dir path</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        metric : str</span>
+<span class="sd">            Metric to plot in the dataframe. Must be one of the column titles.</span>
+<span class="sd">        cumulative : bool</span>
+<span class="sd">            Flag to plot the cumulative sum of the metric.</span>
+<span class="sd">        ylabel : str</span>
+<span class="sd">            y axis label for all plots. Can include format string {name} that</span>
+<span class="sd">            will be replaced with the repo name from the data filename. If</span>
+<span class="sd">            None, the ylabel will just be the metric.</span>
+<span class="sd">        source_dir : str</span>
+<span class="sd">            Directory to look for osos csv&#39;s. This function will try to plot</span>
+<span class="sd">            the desired metric from all csv&#39;s in this directory.</span>
+<span class="sd">        save_dir : str</span>
+<span class="sd">            Directory to save the plots. Will be created if it doesnt exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fps</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">source_dir</span> <span class="o">+</span> <span class="s1">&#39;/*.csv&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">fps</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_dir</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">fp</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">fps</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">cumulative</span><span class="p">:</span>
+                <span class="n">save_path</span> <span class="o">=</span> <span class="n">save_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;_cumulative.png&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ALIASES</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ALIASES</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+            <span class="n">i_ylabel</span> <span class="o">=</span> <span class="n">ylabel</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i_ylabel</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">i_ylabel</span><span class="p">:</span>
+                <span class="n">i_ylabel</span> <span class="o">=</span> <span class="n">i_ylabel</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">plot_metric</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="n">cumulative</span><span class="p">,</span>
+                                <span class="n">save_path</span><span class="o">=</span><span class="n">save_path</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">i_ylabel</span><span class="p">,</span>
+                                <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not plot metric &quot;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">&quot; for &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;.&#39;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Alliance for Sustainable Energy, LLC.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

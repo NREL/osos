@@ -1,0 +1,30 @@
+osos.utilities
+==============
+
+.. automodule:: osos.utilities
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   plotting
+

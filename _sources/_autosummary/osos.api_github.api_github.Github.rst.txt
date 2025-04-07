@@ -1,0 +1,45 @@
+osos.api\_github.api\_github.Github
+===================================
+
+.. currentmodule:: osos.api_github.api_github
+
+.. autoclass:: Github
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Github.clones
+      ~Github.commit_count
+      ~Github.commits
+      ~Github.contributors
+      ~Github.forks
+      ~Github.get_generator
+      ~Github.get_issues_pulls
+      ~Github.get_request
+      ~Github.issues_closed
+      ~Github.issues_open
+      ~Github.pulls_closed
+      ~Github.pulls_open
+      ~Github.stargazers
+      ~Github.subscribers
+      ~Github.views
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Github.BASE_REQ
+      ~Github.TIME_FORMAT
+   
+   

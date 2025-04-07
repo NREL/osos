@@ -1,0 +1,31 @@
+osos.api\_conda.api\_conda
+==========================
+
+.. automodule:: osos.api_conda.api_conda
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+   
+      Conda
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,777 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>osos.api_github.api_github &mdash; osos 0.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            osos
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/osos.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.api_conda.html">osos.api_conda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.api_conda.api_conda.html">osos.api_conda.api_conda</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.api_conda.api_conda.Conda.html">osos.api_conda.api_conda.Conda</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.api_github.html">osos.api_github</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.api_github.api_github.html">osos.api_github.api_github</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.api_github.api_github.Github.html">osos.api_github.api_github.Github</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.api_pypi.html">osos.api_pypi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.api_pypi.api_pypi.html">osos.api_pypi.api_pypi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.api_pypi.api_pypi.Pypi.html">osos.api_pypi.api_pypi.Pypi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.cli.html">osos.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.osos.html">osos.osos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.osos.Osos.html">osos.osos.Osos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.osos.Osos.html#osos.osos.Osos"><code class="docutils literal notranslate"><span class="pre">Osos</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.utilities.html">osos.utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/osos.utilities.plotting.html">osos.utilities.plotting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/osos.utilities.plotting.Plotting.html">osos.utilities.plotting.Plotting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/osos.version.html">osos.version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_cli/cli.html">CLI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_cli/osos.html">osos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_cli/osos.html#osos-plot">plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_cli/osos.html#osos-run">run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">osos</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">osos.api_github.api_github</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for osos.api_github.api_github</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Interface module for github API</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Github">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Github</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to call github api and return osos-formatted usage data.&quot;&quot;&quot;</span>
+
+    <span class="n">BASE_REQ</span> <span class="o">=</span> <span class="s1">&#39;https://api.github.com/repos/</span><span class="si">{owner}</span><span class="s1">/</span><span class="si">{repo}</span><span class="s1">&#39;</span>
+    <span class="n">TIME_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%SZ&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">repo</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        owner : str</span>
+<span class="sd">            Repository owner, e.g. https://github.com/{owner}/{repo}</span>
+<span class="sd">        repo : str</span>
+<span class="sd">            Repository name, e.g. https://github.com/{owner}/{repo}</span>
+<span class="sd">        token : str | None</span>
+<span class="sd">            Github api authorization token. If none this gets retrieved from</span>
+<span class="sd">            the GITHUB_TOKEN environment variable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_repo</span> <span class="o">=</span> <span class="n">repo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">BASE_REQ</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="n">repo</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">token</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;GITHUB_TOKEN&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Could not find environment variable &quot;GITHUB_TOKEN&quot;.&#39;</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Using github token from environment variable &#39;</span>
+                             <span class="s1">&#39;&quot;GITHUB_TOKEN&quot;.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Using github token from kwarg input to osos.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Github API interface for https://github.com/&#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">/&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">st</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Github.get_issues_pulls">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.get_issues_pulls">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_issues_pulls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s1">&#39;issues&#39;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;open&#39;</span><span class="p">,</span>
+                         <span class="n">get_lifetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get open/closed issues/pulls for the repo (all have the same</span>
+<span class="sd">        general parsing format)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        option : str</span>
+<span class="sd">            &quot;issues&quot; or &quot;pulls&quot;</span>
+<span class="sd">        state : str</span>
+<span class="sd">            &quot;open&quot; or &quot;closed&quot;</span>
+<span class="sd">        get_lifetimes : bool</span>
+<span class="sd">            Flag to get the lifetime statistics of issues/pulls. Default is</span>
+<span class="sd">            false to reduce number of API queries. Turning this on requires</span>
+<span class="sd">            that we get the full data for every issue/pull. It is recommended</span>
+<span class="sd">            that users retrieve lifetime statistics manually when desired and</span>
+<span class="sd">            not as part of an automated OSOS workflow.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int | dict</span>
+<span class="sd">            Integer count of the number of issues/pulls if get_lifetimes=False,</span>
+<span class="sd">            or a dict Namespace with keys: &quot;{option}_{state}&quot; and</span>
+<span class="sd">            &quot;{option}_{state}_*&quot; for count, lifteimtes, and mean/median</span>
+<span class="sd">            lifetime in days</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># github api has max 100 items per page. Use max to reduce the total</span>
+        <span class="c1"># number of requests.</span>
+        <span class="k">if</span> <span class="s1">&#39;params&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;per_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span> <span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">get_lifetimes</span> <span class="ow">and</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;pulls&#39;</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">get_lifetimes</span> <span class="ow">and</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;issues&#39;</span><span class="p">:</span>
+            <span class="c1"># pulls get listed as issues but not the other way around</span>
+            <span class="n">i_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/pulls&#39;</span>
+            <span class="n">p_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">i_out</span> <span class="o">-</span> <span class="n">p_out</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_generator</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">lifetimes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="n">d0</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;created_at&#39;</span><span class="p">]</span>
+                <span class="n">d1</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;closed_at&#39;</span><span class="p">]</span>
+                <span class="n">d0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIME_FORMAT</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;closed&#39;</span> <span class="ow">and</span> <span class="n">d1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">d1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIME_FORMAT</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;open&#39;</span><span class="p">:</span>
+                    <span class="n">d1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+                <span class="k">assert</span> <span class="n">d1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Bad final date for: </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span>
+
+                <span class="c1"># pulls get listed as issues but not the other way around</span>
+                <span class="n">condition_1</span> <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;pulls&#39;</span>
+                <span class="n">condition_2</span> <span class="o">=</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;issues&#39;</span> <span class="ow">and</span> <span class="s1">&#39;pull_request&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span>
+
+                <span class="k">if</span> <span class="n">condition_1</span> <span class="ow">or</span> <span class="n">condition_2</span><span class="p">:</span>
+                    <span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">])</span>
+                    <span class="n">lifetime</span> <span class="o">=</span> <span class="p">(</span><span class="n">d1</span> <span class="o">-</span> <span class="n">d0</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span>
+                    <span class="n">lifetimes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lifetime</span><span class="p">)</span>
+
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">lifetimes</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">lifetimes</span><span class="p">)</span>
+            <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">lifetimes</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">lifetimes</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">numbers</span><span class="p">,</span>
+                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">_count&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">),</span>
+                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">_lifetimes&#39;</span><span class="p">:</span> <span class="n">lifetimes</span><span class="p">,</span>
+                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">_mean_lifetime&#39;</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span>
+                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">_median_lifetime&#39;</span><span class="p">:</span> <span class="n">median</span><span class="p">,</span>
+                   <span class="p">}</span>
+
+            <span class="k">return</span> <span class="n">out</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_traffic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s1">&#39;clones&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the daily github repo traffic data for the last two weeks</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        option : str</span>
+<span class="sd">            &quot;clones&quot; or &quot;views&quot;</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : pd.DataFrame</span>
+<span class="sd">            Timeseries of daily git clone data. Includes columns for &quot;views&quot; or</span>
+<span class="sd">            &quot;clones&quot; and &quot;views_unique&quot; or &quot;clones_unique&quot;. Index is a pandas</span>
+<span class="sd">            datetime index with just the datetime.date part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;/traffic/</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">option</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="s1">&#39;timestamp&#39;</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;uniques&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
+                               <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()])</span>
+
+        <span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">option</span><span class="p">,</span> <span class="s1">&#39;uniques&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s1">_unique&#39;</span><span class="p">},</span>
+                         <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_total_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the total count of a request object without querying every page</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        request : str</span>
+<span class="sd">            Request URL, example: &quot;https://api.github.com/repos/NREL/reV/pulls&quot;</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int</span>
+<span class="sd">            Total number of items in all pages of the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">req</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">num_pages</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">n_last</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="s1">&#39;last&#39;</span> <span class="ow">in</span> <span class="n">req</span><span class="o">.</span><span class="n">links</span><span class="p">:</span>
+            <span class="n">last_url</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">links</span><span class="p">[</span><span class="s1">&#39;last&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;page=[0-9]*$&#39;</span><span class="p">,</span> <span class="n">last_url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Could not find page=[0-9]*$ in url: </span><span class="si">{</span><span class="n">last_url</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="n">num_pages</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;page=&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">last_page</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">last_url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">n_last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">last_page</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="p">())</span> <span class="o">*</span> <span class="n">num_pages</span> <span class="o">+</span> <span class="n">n_last</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+<div class="viewcode-block" id="Github.get_request">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.get_request">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the raw request output object</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        request : str</span>
+<span class="sd">            Request URL, example: &quot;https://api.github.com/repos/NREL/reV/pulls&quot;</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : requests.models.Response</span>
+<span class="sd">            requests.get() output object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="s1">&#39;Authorization&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;token </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Received unexpected status code &quot;</span><span class="si">{}</span><span class="s1">&quot; for reason &quot;</span><span class="si">{}</span><span class="s1">&quot;.&#39;</span>
+                   <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Request: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Output: </span><span class="si">{}</span><span class="s1">&#39;</span>
+                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span>
+                           <span class="n">out</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.get_generator">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.get_generator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call the github API using the requests.get() method and merge all</span>
+<span class="sd">        the paginated results into a single output</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        request : str</span>
+<span class="sd">            Request URL, example: &quot;https://api.github.com/repos/NREL/reV/pulls&quot;</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : generator</span>
+<span class="sd">            generator of list items in the request output</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="s1">&#39;Authorization&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;token </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+                                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">temp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Received unexpected status code &quot;</span><span class="si">{}</span><span class="s1">&quot; for reason &quot;</span><span class="si">{}</span><span class="s1">&quot;.&#39;</span>
+                       <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Request: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Output: </span><span class="si">{}</span><span class="s1">&#39;</span>
+                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">temp</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span>
+                               <span class="n">temp</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;JSON output is type &quot;</span><span class="si">{}</span><span class="s1">&quot;, not list, could &#39;</span>
+                       <span class="s1">&#39;not parse output from request: &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span>
+                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">temp</span><span class="p">),</span> <span class="n">request</span><span class="p">))</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">entry</span></div>
+
+
+<div class="viewcode-block" id="Github.contributors">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.contributors">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contributors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of repo contributors</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int</span>
+<span class="sd">            Number of contributors for the repo.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting contributors for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/contributors&#39;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+
+
+<div class="viewcode-block" id="Github.commit_count">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.commit_count">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">commit_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of repo commits</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int</span>
+<span class="sd">            Total number of commits to the repo.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting commit count for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/commits&#39;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.commits">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.commits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">commits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_iter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">search_all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of commits by day in a given set of dates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        date_start : datetime.date | None</span>
+<span class="sd">            Option to search for commits from this date to today. Either input</span>
+<span class="sd">            this or the date_iter.</span>
+<span class="sd">        date_iter : list | tuple | pd.DatetimeIndex | None</span>
+<span class="sd">            Iterable of dates to search for. Either input this or the</span>
+<span class="sd">            date_start.</span>
+<span class="sd">        search_all : bool</span>
+<span class="sd">            Flag to search all commits or to terminate early (default) when the</span>
+<span class="sd">            commit date is before all dates in the date_iter</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : pd.DataFrame</span>
+<span class="sd">            Timeseries of commit data based on date_iter as the index. Includes</span>
+<span class="sd">            columns for &quot;commits&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">date_start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">date_iter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">date_start</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">date_iter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Must either input date_start or date_iter!&#39;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Getting commit history for &#39;</span>
+                     <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">date_iter</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="s1">&#39;commits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/commits&#39;</span>
+        <span class="n">commit_iter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_generator</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">com</span> <span class="ow">in</span> <span class="n">commit_iter</span><span class="p">:</span>
+            <span class="n">c_date</span> <span class="o">=</span> <span class="n">com</span><span class="p">[</span><span class="s1">&#39;commit&#39;</span><span class="p">][</span><span class="s1">&#39;committer&#39;</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
+            <span class="n">c_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">c_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIME_FORMAT</span><span class="p">)</span>
+            <span class="n">c_date</span> <span class="o">=</span> <span class="n">c_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_iter</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c_date</span> <span class="o">==</span> <span class="n">date</span><span class="p">:</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">date</span><span class="p">,</span> <span class="s1">&#39;commits&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">stop</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">c_date</span> <span class="o">&gt;</span> <span class="n">date</span><span class="p">:</span>
+                    <span class="n">stop</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">stop</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">search_all</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.clones">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.clones">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the daily github repo clone data for the last two weeks.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : pd.DataFrame</span>
+<span class="sd">            Timeseries of daily git clone data. Includes columns for &quot;clones&quot;</span>
+<span class="sd">            and &quot;clones_unique&quot;. Index is a pandas datetime index with just the</span>
+<span class="sd">            datetime.date part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting clones for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traffic</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s1">&#39;clones&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Github.forks">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.forks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of repo forks.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int</span>
+<span class="sd">            The number of forks.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting forks for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/forks&#39;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+
+
+<div class="viewcode-block" id="Github.issues_closed">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.issues_closed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">issues_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_lifetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get data on the closed repo issues.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        get_lifetimes : bool</span>
+<span class="sd">            Flag to get the lifetime statistics of issues/pulls. Default is</span>
+<span class="sd">            false to reduce number of API queries. Turning this on requires</span>
+<span class="sd">            that we get the full data for every issue/pull. It is recommended</span>
+<span class="sd">            that users retrieve lifetime statistics manually when desired and</span>
+<span class="sd">            not as part of an automated OSOS workflow.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int | dict</span>
+<span class="sd">            Number of closed issues, or if get_lifetimes is True, this returns</span>
+<span class="sd">            a dict with additional metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting closed issues for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_issues_pulls</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s1">&#39;issues&#39;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span>
+                                    <span class="n">get_lifetimes</span><span class="o">=</span><span class="n">get_lifetimes</span><span class="p">,</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.issues_open">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.issues_open">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">issues_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_lifetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get data on the open repo issues.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        get_lifetimes : bool</span>
+<span class="sd">            Flag to get the lifetime statistics of issues/pulls. Default is</span>
+<span class="sd">            false to reduce number of API queries. Turning this on requires</span>
+<span class="sd">            that we get the full data for every issue/pull. It is recommended</span>
+<span class="sd">            that users retrieve lifetime statistics manually when desired and</span>
+<span class="sd">            not as part of an automated OSOS workflow.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int | dict</span>
+<span class="sd">            Number of open issues, or if get_lifetimes is True, this returns</span>
+<span class="sd">            a dict with additional metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting open issues for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_issues_pulls</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s1">&#39;issues&#39;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;open&#39;</span><span class="p">,</span>
+                                    <span class="n">get_lifetimes</span><span class="o">=</span><span class="n">get_lifetimes</span><span class="p">,</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.pulls_closed">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.pulls_closed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pulls_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_lifetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get data on the closed repo pull requests.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        get_lifetimes : bool</span>
+<span class="sd">            Flag to get the lifetime statistics of issues/pulls. Default is</span>
+<span class="sd">            false to reduce number of API queries. Turning this on requires</span>
+<span class="sd">            that we get the full data for every issue/pull. It is recommended</span>
+<span class="sd">            that users retrieve lifetime statistics manually when desired and</span>
+<span class="sd">            not as part of an automated OSOS workflow.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int | dict</span>
+<span class="sd">            Number of closed pull requests, or if get_lifetimes is True, this</span>
+<span class="sd">            returns a dict with additional metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting closed pulls for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_issues_pulls</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s1">&#39;pulls&#39;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span>
+                                    <span class="n">get_lifetimes</span><span class="o">=</span><span class="n">get_lifetimes</span><span class="p">,</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.pulls_open">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.pulls_open">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pulls_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_lifetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get data on the open repo pull requests.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        get_lifetimes : bool</span>
+<span class="sd">            Flag to get the lifetime statistics of issues/pulls. Default is</span>
+<span class="sd">            false to reduce number of API queries. Turning this on requires</span>
+<span class="sd">            that we get the full data for every issue/pull. It is recommended</span>
+<span class="sd">            that users retrieve lifetime statistics manually when desired and</span>
+<span class="sd">            not as part of an automated OSOS workflow.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int | dict</span>
+<span class="sd">            Number of open pull requests, or if get_lifetimes is True, this</span>
+<span class="sd">            returns a dict with additional metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting open pulls for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_issues_pulls</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s1">&#39;pulls&#39;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;open&#39;</span><span class="p">,</span>
+                                    <span class="n">get_lifetimes</span><span class="o">=</span><span class="n">get_lifetimes</span><span class="p">,</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Github.stargazers">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.stargazers">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stargazers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of repo stargazers</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int</span>
+<span class="sd">            Number of stargazers for the repo.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting stargazers for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/stargazers&#39;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+
+
+<div class="viewcode-block" id="Github.subscribers">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.subscribers">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subscribers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of repo subscribers</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : int</span>
+<span class="sd">            Number of subscribers for the repo.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting subscribers for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_req</span> <span class="o">+</span> <span class="s1">&#39;/subscribers&#39;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_count</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+
+
+<div class="viewcode-block" id="Github.views">
+<a class="viewcode-back" href="../../../_autosummary/osos.api_github.api_github.Github.html#osos.api_github.api_github.Github.views">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">views</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the daily github repo views data for the last two weeks.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional kwargs to get passed to requests.get()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : pd.DataFrame</span>
+<span class="sd">            Timeseries of daily git views data. Includes columns for &quot;views&quot;</span>
+<span class="sd">            and &quot;views_unique&quot;. Index is a pandas datetime index with just the</span>
+<span class="sd">            datetime.date part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Getting views history for &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_owner</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_repo</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traffic</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s1">&#39;views&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Alliance for Sustainable Energy, LLC.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

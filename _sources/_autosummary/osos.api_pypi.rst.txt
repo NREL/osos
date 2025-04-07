@@ -1,0 +1,30 @@
+osos.api\_pypi
+==============
+
+.. automodule:: osos.api_pypi
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   api_pypi
+
